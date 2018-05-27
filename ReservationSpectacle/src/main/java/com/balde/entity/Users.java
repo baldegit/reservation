@@ -23,7 +23,7 @@ public class Users implements Serializable{
 	@Column(nullable = false)
 	private String password;
 	
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne
 	@JoinColumn(name = "role_id", nullable = false)
 	private Roles role;
 	

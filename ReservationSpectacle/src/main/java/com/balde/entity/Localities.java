@@ -13,7 +13,6 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import com.mysql.fabric.xmlrpc.base.Array;
 
 @Entity
 @Table(name = "localities")

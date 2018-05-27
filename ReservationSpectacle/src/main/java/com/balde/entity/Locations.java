@@ -28,7 +28,7 @@ public class Locations implements Serializable{
 	@Column(nullable = false)
 	private String address;
 	
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne
 	@JoinColumn(name = "locality_id", nullable = false)
 	private Localities locality;
 	

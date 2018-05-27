@@ -20,11 +20,11 @@ public class ArtistType implements Serializable{
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne
 	@JoinColumn(name = "artist_id", nullable = false)
 	private Artists artist;
 	
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne
 	@JoinColumn(name = "type_id", nullable = false)
 	private Types type;
 	

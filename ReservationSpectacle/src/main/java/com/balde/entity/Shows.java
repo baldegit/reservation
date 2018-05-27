@@ -28,12 +28,12 @@ public class Shows implements Serializable{
 	@Column(name = "poster_url",nullable = false)
 	private String posterUrl;
 	
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne
 	@JoinColumn(name = "location_id", nullable = false)
 	private Locations location;
 	
 	@Column(nullable = false)
-	private byte bookable;
+	private int bookable;
 	
 	@Column(nullable = false)
 	private float price;
@@ -53,7 +53,7 @@ public class Shows implements Serializable{
 		// TODO Auto-generated constructor stub
 	}
 
-	public Shows(String slug, String title, String posterUrl, Locations location, byte bookable, float price) {
+	public Shows(String slug, String title, String posterUrl, Locations location, int bookable, float price) {
 		super();
 		this.slug = slug;
 		this.title = title;
@@ -103,11 +103,11 @@ public class Shows implements Serializable{
 		this.location = location;
 	}
 
-	public byte getBookable() {
+	public int getBookable() {
 		return bookable;
 	}
 
-	public void setBookable(byte bookable) {
+	public void setBookable(int bookable) {
 		this.bookable = bookable;
 	}
 
