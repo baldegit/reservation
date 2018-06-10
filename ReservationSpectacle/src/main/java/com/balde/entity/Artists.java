@@ -1,10 +1,10 @@
 package com.balde.entity;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 import javax.persistence.*;
+import javax.validation.constraints.*;
 
 @Entity
 @Table(name = "artists")
@@ -28,7 +28,7 @@ public class Artists implements Serializable{
 	@OneToMany(targetEntity = ArtistType.class,
 				mappedBy = "artist",
 				cascade = CascadeType.ALL)
-	private List<ArtistType> artistType = new ArrayList<>();
+	private List<ArtistType> artistType;
 	
 	public Artists() {
 		super();
@@ -42,8 +42,6 @@ public class Artists implements Serializable{
 		this.artistType = artistType;
 	}
 	
-	
-
 	public Artists(String firstName, String lastName) {
 		super();
 		this.firstName = firstName;

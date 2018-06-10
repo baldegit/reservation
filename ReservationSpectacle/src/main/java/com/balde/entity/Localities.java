@@ -28,7 +28,7 @@ public class Localities implements Serializable{
 	private int id;
 	
 	@Column(name = "postal_code",nullable = false)
-	private String PostalCode;
+	private String postalCode;
 	
 	@Column(nullable = false)
 	private String locality;
@@ -45,7 +45,7 @@ public class Localities implements Serializable{
 
 	public Localities(String postalCode, String locality) {
 		super();
-		PostalCode = postalCode;
+		this.postalCode = postalCode;
 		this.locality = locality;
 	}
 
@@ -58,11 +58,11 @@ public class Localities implements Serializable{
 	}
 
 	public String getPostalCode() {
-		return PostalCode;
+		return postalCode;
 	}
 
 	public void setPostalCode(String postalCode) {
-		PostalCode = postalCode;
+		this.postalCode = postalCode;
 	}
 
 	public String getLocality() {
@@ -80,5 +80,7 @@ public class Localities implements Serializable{
 	public void setLocation(List<Locations> location) {
 		this.location = location;
 	}
+
+	
 	
 }

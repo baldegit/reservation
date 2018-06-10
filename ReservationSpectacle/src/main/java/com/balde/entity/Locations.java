@@ -19,7 +19,7 @@ public class Locations implements Serializable{
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	
-	@Column(nullable = false, unique = true)
+	@Column(nullable = false)
 	private String slug;
 	
 	@Column(nullable = false)

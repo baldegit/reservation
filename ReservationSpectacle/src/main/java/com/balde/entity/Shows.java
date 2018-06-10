@@ -6,6 +6,9 @@ import java.util.List;
 
 import javax.persistence.*;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 @Entity
 @Table(name = "shows")
 public class Shows implements Serializable{
@@ -19,7 +22,7 @@ public class Shows implements Serializable{
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	
-	@Column(nullable = false, unique = true)
+	@Column(nullable = false)
 	private String slug;
 	
 	@Column(nullable = false)
@@ -34,6 +37,9 @@ public class Shows implements Serializable{
 	
 	@Column(nullable = false)
 	private int bookable;
+	
+	@Column(columnDefinition="TEXT")
+	private String description;
 	
 	@Column(nullable = false)
 	private float price;
@@ -53,15 +59,39 @@ public class Shows implements Serializable{
 		// TODO Auto-generated constructor stub
 	}
 
-	public Shows(String slug, String title, String posterUrl, Locations location, int bookable, float price) {
+	
+
+	public Shows(String slug, String title, String posterUrl, Locations location, int bookable, String description,
+			float price, List<Representations> representation, List<ArtistTypeShow> artistType) {
 		super();
 		this.slug = slug;
 		this.title = title;
 		this.posterUrl = posterUrl;
 		this.location = location;
 		this.bookable = bookable;
+		this.description = description;
+		this.price = price;
+		this.representation = representation;
+		this.artistType = artistType;
+	}
+	
+	
+
+
+
+	public Shows(String slug, String title, String posterUrl, Locations location, int bookable, String description,
+			float price) {
+		super();
+		this.slug = slug;
+		this.title = title;
+		this.posterUrl = posterUrl;
+		this.location = location;
+		this.bookable = bookable;
+		this.description = description;
 		this.price = price;
 	}
+
+
 
 	public int getId() {
 		return id;
@@ -111,6 +141,14 @@ public class Shows implements Serializable{
 		this.bookable = bookable;
 	}
 
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
 	public float getPrice() {
 		return price;
 	}
@@ -134,7 +172,6 @@ public class Shows implements Serializable{
 	public void setArtistType(List<ArtistTypeShow> artistType) {
 		this.artistType = artistType;
 	}
-	
-	
+
 	
 }

@@ -24,7 +24,7 @@ public class ArtistType implements Serializable{
 	@JoinColumn(name = "artist_id", nullable = false)
 	private Artists artist;
 	
-	@ManyToOne
+	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name = "type_id", nullable = false)
 	private Types type;
 	

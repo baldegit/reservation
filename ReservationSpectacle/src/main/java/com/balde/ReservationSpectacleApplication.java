@@ -6,6 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.web.client.RestTemplate;
 
 import com.balde.entity.ArtistType;
 import com.balde.entity.ArtistTypeShow;
@@ -29,6 +32,7 @@ import com.balde.repository.RolesRepository;
 import com.balde.repository.ShowsRepository;
 import com.balde.repository.TypesRepository;
 import com.balde.repository.UsersRepository;
+import com.balde.service.api.ShowRecordesFromAPI;
 
 @SpringBootApplication
 public class ReservationSpectacleApplication implements CommandLineRunner{
@@ -56,6 +60,7 @@ public class ReservationSpectacleApplication implements CommandLineRunner{
 	@Autowired
 	UsersRepository user;
 	
+	
 	public static void main(String[] args) {
 		SpringApplication.run(ReservationSpectacleApplication.class, args);
 	}
@@ -75,11 +80,15 @@ public class ReservationSpectacleApplication implements CommandLineRunner{
 		this.type.save(t1);
 		Types t2 = new Types("danseur");
 		this.type.save(t2);
+		Types t3 = new Types("acteur");
+		this.type.save(t3);
 		
-		ArtistType at1 = new ArtistType(a1, t1);
+		ArtistType at1 = new ArtistType(a2, t1);
 		this.artistType.save(at1);
-		ArtistType at2 = new ArtistType(a2, t2);
+		ArtistType at2 = new ArtistType(a1, t2);
 		this.artistType.save(at2);
+		ArtistType at3 = new ArtistType(a1, t3);
+		this.artistType.save(at3);
 		
 		// creationd de localities, location et show
 		
@@ -93,13 +102,13 @@ public class ReservationSpectacleApplication implements CommandLineRunner{
 		Locations l12 = new Locations("kouroula", "RD", "43 rue de touge", l02, "", "056573");
 		this.locations.save(l12);
 
-		Shows s0 = new Shows("wakanda", "Wakanda Representation", "", l11, 18, 20);
+		Shows s0 = new Shows("wakanda", "Wakanda Representation", "", l11, 18, "ceci est une description",20);
 		this.show.save(s0);
-		Shows s1 = new Shows("BALFA", "balafa Representation", "", l11, 18, 20);
+		Shows s1 = new Shows("BALFA", "balafa Representation", "", l11, 18,"ceci est une description",20);
 		this.show.save(s1);
-		Shows s2 = new Shows("sokoto", "sokoto Representation", "", l12, 18, 20);
+		Shows s2 = new Shows("sokoto", "sokoto Representation", "", l12, 18,"ceci est une description",20);
 		this.show.save(s2);
-		Shows s3 = new Shows("sogoya", "sogoya Representation", "", l12, 18, 20);
+		Shows s3 = new Shows("sogoya", "sogoya Representation", "", l12, 18,"ceci est une description",20);
 		this.show.save(s3);
 		
 		
@@ -131,6 +140,17 @@ public class ReservationSpectacleApplication implements CommandLineRunner{
 		
 		RepresentationUser ru0 = new RepresentationUser(r0, u0, 0);
 		this.representationUser.save(ru0);
+//	
+		
+//		String url = "https://opendata.paris.fr/api/records/1.0/search//?dataset=evenements-a-paris&q=theatre&rows="+4;
+//		
+//		RestTemplate restTemplate = new RestTemplate();
+//		
+//		ShowRecordesFromAPI sr = restTemplate.getForObject(url,ShowRecordesFromAPI.class);
+//		System.out.println(sr.getNhits()+" ");
+//		sr.getRecords().forEach(xx -> {
+//			System.out.println(xx.getFields().getAddress()+" "+xx.getFields().getCity()+" "+xx.getFields().getPlacename());
+//		});
 		
 	}
 }
