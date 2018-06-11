@@ -73,12 +73,13 @@
 			  	<div class="container">
 			  		<ul class="pagination">
 			  			<c:url value="/admin/artiste?page=" var="artiste" />
-			  			
-			  			<c:forEach begin="0" end="${pages-1}" step="1" var="page">
-			  				<li>
-			  					<a href="<c:out value="${artiste}${page}" >  </c:out>" > <c:out value="${page+1}" /></a>
-			  				</li>
-			  			</c:forEach>
+			  			<c:if test="${not empty pages}">
+				  			<c:forEach begin="0" end="${pages-1}" step="1" var="page">
+				  				<li>
+				  					<a href="<c:out value="${artiste}${page}" >  </c:out>" > <c:out value="${page+1}" /></a>
+				  				</li>
+				  			</c:forEach>
+			  			</c:if>
 			  		</ul>
 			  	</div>
 			  </div>

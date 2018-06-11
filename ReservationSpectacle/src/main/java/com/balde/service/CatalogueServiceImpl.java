@@ -1,5 +1,6 @@
 package com.balde.service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -12,6 +13,8 @@ import org.springframework.web.client.RestTemplate;
 
 import com.balde.entity.*;
 import com.balde.repository.*;
+import com.balde.service.api.Role;
+import com.balde.service.api.RolesFromAPI;
 import com.balde.service.api.ShowRecordesFromAPI;
 
 @Service
@@ -197,6 +200,24 @@ public class CatalogueServiceImpl implements ICatalogueService{
 			
 			
 			return Optional.ofNullable(1);
+		} catch (Exception e) {
+			// TODO: handle exception
+			throw e;
+		}
+	}
+
+	@Override
+	public Optional<RolesFromAPI> getRolesFromAPI() throws Exception {
+		// TODO Auto-generated method stub
+		
+		String url = "http://localhost:8080/ReservationSpectacle/roles/";
+		try {
+		
+			RestTemplate restTemplate = new RestTemplate();
+			RolesFromAPI roles = restTemplate.getForObject(url,RolesFromAPI.class);
+			
+			return Optional.ofNullable(roles);
+			
 		} catch (Exception e) {
 			// TODO: handle exception
 			throw e;

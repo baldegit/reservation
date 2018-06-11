@@ -6,6 +6,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 import com.balde.entity.*;
+import com.balde.service.api.RolesFromAPI;
 
 
 public interface ICatalogueService {
@@ -26,6 +27,9 @@ public interface ICatalogueService {
 	
 	// ArtistesTypes
 	public Optional<List<ArtistType>> getArtistesTypes();
+	
+	//Roles
+	public Optional<RolesFromAPI> getRolesFromAPI() throws Exception;// my home made API
 	
 	
 }

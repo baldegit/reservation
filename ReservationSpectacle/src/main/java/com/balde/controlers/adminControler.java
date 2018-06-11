@@ -23,6 +23,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.balde.entity.*;
 import com.balde.service.ICatalogueService;
+import com.balde.service.api.RolesFromAPI;
 
 
 @Controller
@@ -31,12 +32,14 @@ public class adminControler {
 	
 	private static final String PAGE_ARTISTE_JS = "adminArtiste";
 	private static final String PAGE_SHOW_JS = "adminShow";
+	private static final String PAGE_ROLE_JS = "adminRole";
 	private static final String PAGE_REPRESENTATION_JS = "representation";
 	private static final String PAGE_SPECTACLE_JS = "spectacle";
 	private static final String PAGE_UPADATE_SAVE_JS = "updateSaveArtiste";
 	
 	private static final String OBJECT_ARTISTE = "artistes";
 	private static final String OBJECT_SHOW = "shows";
+	private static final String OBJECT_ROLES = "roles";
 	private static final String OBJECT_ARTISTE_TYPE = "artistesTypes";
 	private static final String OBJECT_TOTAL_PAGE = "pages";
 	
@@ -161,7 +164,7 @@ public class adminControler {
 		
 	
 		
-		if(o.isPresent() && o1.isPresent()) {
+		if(o.get().getContent().size() > 0 ) {
 			mv.addObject(this.OBJECT_ARTISTE, o.get().getContent());
 			mv.addObject(this.OBJECT_TOTAL_PAGE, o.get().getTotalPages());
 			mv.addObject(OBJECT_ARTISTE_TYPE, o1.get());
@@ -187,12 +190,12 @@ public class adminControler {
 		
 		try {
 			Optional<Page<Shows>> o = this.catalogue.getAllShows(PageRequest.of(page, size));
-			if(o.isPresent()) {
+			if(o.get().getContent().size() > 0) {
 				mv.addObject(this.OBJECT_SHOW, o.get().getContent());
 				mv.addObject(this.OBJECT_TOTAL_PAGE, o.get().getTotalPages());
 			}else {
 				mv.addObject(MESSAGE, "la liste des shows est vide ");
-				mv.addObject(this.OBJECT_ARTISTE, null);
+				mv.addObject(this.OBJECT_SHOW, null);
 				mv.addObject(this.OBJECT_TOTAL_PAGE, null);
 			}
 		} catch (Exception e) {
@@ -203,6 +206,28 @@ public class adminControler {
 		mv.setViewName(this.PAGE_SHOW_JS);
 	
 		
+		return mv;
+	}
+	
+	@GetMapping("/roles")
+	public ModelAndView roles() {
+		ModelAndView mv = new ModelAndView();
+		try {
+			Optional<RolesFromAPI> o = this.catalogue.getRolesFromAPI(); 
+			
+			if(o.isPresent()) {
+				mv.addObject(this.OBJECT_ROLES, o.get().getRoles());
+			}else {
+				mv.addObject(this.OBJECT_ROLES, null);
+			}
+			
+		} catch (Exception e) {
+			// TODO: handle exception
+			mv.addObject(MESSAGE, "Erreur survenu cote serveur ");
+		}
+		mv.setViewName(this.PAGE_ROLE_JS);
+		
+		System.out.println("#################################");
 		return mv;
 	}
 	

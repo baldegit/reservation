@@ -32,6 +32,7 @@ import com.balde.repository.RolesRepository;
 import com.balde.repository.ShowsRepository;
 import com.balde.repository.TypesRepository;
 import com.balde.repository.UsersRepository;
+import com.balde.service.api.RolesFromAPI;
 import com.balde.service.api.ShowRecordesFromAPI;
 
 @SpringBootApplication
@@ -140,17 +141,17 @@ public class ReservationSpectacleApplication implements CommandLineRunner{
 		
 		RepresentationUser ru0 = new RepresentationUser(r0, u0, 0);
 		this.representationUser.save(ru0);
-//	
+	
 		
-//		String url = "https://opendata.paris.fr/api/records/1.0/search//?dataset=evenements-a-paris&q=theatre&rows="+4;
-//		
-//		RestTemplate restTemplate = new RestTemplate();
-//		
-//		ShowRecordesFromAPI sr = restTemplate.getForObject(url,ShowRecordesFromAPI.class);
-//		System.out.println(sr.getNhits()+" ");
-//		sr.getRecords().forEach(xx -> {
-//			System.out.println(xx.getFields().getAddress()+" "+xx.getFields().getCity()+" "+xx.getFields().getPlacename());
-//		});
+		String url = "https://opendata.paris.fr/api/records/1.0/search//?dataset=evenements-a-paris&q=theatre&rows="+4;
+		
+		RestTemplate restTemplate = new RestTemplate();
+		
+		ShowRecordesFromAPI sr = restTemplate.getForObject(url,ShowRecordesFromAPI.class);
+		System.out.println(sr.getNhits()+" ");
+		sr.getRecords().forEach(xx -> {
+			System.out.println(xx.getFields().getAddress()+" "+xx.getFields().getCity()+" "+xx.getFields().getPlacename());
+		});
 		
 	}
 }

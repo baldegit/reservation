@@ -63,11 +63,11 @@
 						  		</li>
 						  		<li>
 						  			<c:url value="/admin/representation" var="representation" />
-						  			<a href="${representation}"> Gestion des Representations</a>
+						  			<a href="#"> Gestion des Representations</a>
 						  		</li>
 						  		<li>
-						  			<c:url value="/admin/spectacle" var="spectacle" />
-						  			<a href="${spectacle}"> Update Liste Spectacle</a>
+						  			<c:url value="/admin/roles" var="role" />
+						  			<a href="${role}"> Gestion des Roles</a>
 						  		</li>
 						  	</ul>
 						  </div>

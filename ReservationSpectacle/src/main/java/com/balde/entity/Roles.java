@@ -7,8 +7,11 @@ import java.util.List;
 
 import javax.persistence.*;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 @Entity
 @Table(name = "roles")
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Roles implements Serializable{
 
 	/**
@@ -20,7 +23,7 @@ public class Roles implements Serializable{
 	@GeneratedValue(strategy =GenerationType.IDENTITY )
 	private int id;
 	
-	@Column(nullable = false)
+	@Column(nullable = false, unique = true)
 	private String role;
 	
 	@OneToMany(targetEntity = Users.class,
@@ -54,9 +57,9 @@ public class Roles implements Serializable{
 		this.role = role;
 	}
 
-	public List<Users> getUser() {
-		return user;
-	}
+//	public List<Users> getUser() {
+//		return user;
+//	}
 
 	public void setUser(List<Users> user) {
 		this.user = user;
