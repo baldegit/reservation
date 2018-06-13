@@ -31,5 +31,9 @@ public interface ICatalogueService {
 	//Roles
 	public Optional<RolesFromAPI> getRolesFromAPI() throws Exception;// my home made API
 	
+	//Reservation
+	public boolean isPlace(Shows s);
+	public void updatePlace(int id);
+	
 	
 }

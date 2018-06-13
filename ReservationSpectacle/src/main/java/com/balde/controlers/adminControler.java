@@ -44,7 +44,7 @@ public class adminControler {
 	private static final String OBJECT_TOTAL_PAGE = "pages";
 	
 	private static final String MESSAGE = "message";
-	
+	//4242 4242 4242 4242
 	@Autowired
 	ICatalogueService catalogue;
 	

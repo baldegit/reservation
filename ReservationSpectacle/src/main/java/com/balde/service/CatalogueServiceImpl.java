@@ -224,6 +224,28 @@ public class CatalogueServiceImpl implements ICatalogueService{
 		}
 	}
 
+	@Override
+	public boolean isPlace(Shows s) {
+		// TODO Auto-generated method stub
+		int nbPlace = s.getBookable();
+		
+		return nbPlace > 0 ? true : false;
+	}
+
+	@Override
+	public void updatePlace(int id) {
+		// TODO Auto-generated method stub
+		try {
+			Shows s = this.getShowsById(id).get();
+			s.setBookable(s.getBookable() - 1);
+			this.showRepo.saveAndFlush(s);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
+
 
 
 }
