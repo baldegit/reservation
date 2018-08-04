@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+	</head>
+	<body>
+	
+		<div th:fragment="navigation-header-sidebar">
+		
+			<!-- navigation-header-sidebar -->
+	       	<nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
+	            
+	            <!-- header -->
+	        	<div th:replace="fragments/admin/fragment-navigation-header :: navigation-header"></div>
+	            <!-- /#header -->
+	            
+	            <!-- sidebar -->
+	        	<div th:replace="fragments/admin/fragment-navigation-sidebar:: navigation-sidebar"></div>
+	            <!-- /#sidebar -->
+	            
+	            
+	        </nav>
+	        <!-- / #navigation-header-sidebar -->
+	        
+		</div>
+	</body>
+</html>

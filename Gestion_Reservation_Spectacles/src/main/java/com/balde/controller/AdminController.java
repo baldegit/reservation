@@ -10,6 +10,6 @@ public class AdminController {
 	
 	@GetMapping("/")
 	public String dashboard() {
-		return "adminIndex";
+		return "adminDashoard";
 	}
 }
