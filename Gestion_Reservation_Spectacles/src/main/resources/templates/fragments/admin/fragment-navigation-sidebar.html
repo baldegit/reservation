@@ -14,10 +14,10 @@
 	                            <div class="input-group custom-search-form">
 	                                <input type="text" class="form-control" placeholder="Search...">
 	                                <span class="input-group-btn">
-	                                <button class="btn btn-default" type="button">
-	                                    <i class="fa fa-search"></i>
-	                                </button>
-	                            </span>
+		                                <button class="btn btn-default" type="button">
+		                                    <i class="fa fa-search"></i>
+		                                </button>
+	                            	</span>
 	                            </div>
 	                            <!-- /input-group -->
 	                        </li>
@@ -25,16 +25,19 @@
 	                        <!--  -->
 	                        
 	                        <li>
-	                            <a href="index.html"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
+	                            <a th:href="@{dashboard}"><i class="fa fa-dashboard fa-fw"></i> <span th:text="#{admin.dasboard}"/></a>
 	                        </li>
 	                        <li>
-	                            <a href="#"><i class="fa fa-bar-chart-o fa-fw"></i> Charts<span class="fa arrow"></span></a>
+	                            <a href="#">
+	                            	<i class="fa fa-star-half-empty fa-fw"></i> 
+	                            	<span th:text="#{admin.Artites}"/> <span class="fa arrow"></span>
+	                           	</a>
 	                            <ul class="nav nav-second-level">
 	                                <li>
-	                                    <a href="flot.html">Flot Charts</a>
+	                                    <a th:href="@{type}" th:text="#{admin.Artite}">Flot Charts</a>
 	                                </li>
 	                                <li>
-	                                    <a href="morris.html">Morris.js Charts</a>
+	                                    <a th:href="@{type}" th:text="#{admin.Type}">Morris.js Charts</a>
 	                                </li>
 	                            </ul>
 	                            <!-- /.nav-second-level -->

@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.*;
+import javax.validation.constraints.*;
 
 @Entity
 @Table(name = "types")
@@ -18,8 +19,12 @@ public class Types implements Serializable{
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
+	
 	@Column(nullable = false)
+	@NotEmpty
+	@Size(min=5,max=16)
 	private String type;
+	
 	@OneToMany(targetEntity = ArtistType.class,
 				mappedBy = "type",
 				cascade = CascadeType.ALL)

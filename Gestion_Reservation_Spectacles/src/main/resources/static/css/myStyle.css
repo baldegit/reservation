@@ -1,0 +1,12 @@
+@charset "UTF-8";
+
+.spacer{
+	margin-top: 40px;
+}
+
+.center {
+    margin: auto;
+    width: 50%;
+    border: 3px solid green;
+    padding: 10px;
+}
