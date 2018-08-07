@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html th:replace="~{adminLayout :: layout(~{::title}, ~{::section})}">
+	<head>
+		<meta charset="UTF-8">
+		<title th:text="#{adminArtiste.title}">Insert title here</title>
+	</head>
+	<body>
+		<section>
+			<div class="container spacer">
+			  	<div class="panel panel-default">
+				    <div class="panel-heading" >
+				    	
+				    	<div class="row">
+				    		 <div class="col-lg-4">
+				    		 	<span th:utext="#{adminType.panel.ArtisteL}"></span>
+				    		 </div>
+				    		 <div class="col-lg-3 " >
+				    		 	<form th:action="@{artiste}" method="get">
+				    		 		<div class="input-group custom-search-form">
+		                                <input type="text" class="form-control" name="motCle" th:value="${motCle}">
+		                                <span class="input-group-btn">
+			                                <button class="btn btn-default" type="submit">
+			                                    <i class="fa fa-search"></i>
+			                                </button>
+		                            	</span>
+	                            	</div>
+				    		 	</form>
+				    		 </div>
+				    		 <div class="col-lg-1 col-lg-offset-4">
+				    		 	<a th:href="@{editOrCreateArtiste}" th:title="#{adminType.panel.ArtisteR}">
+				    		 		<span class="glyphicon glyphicon-plus-sign" style="font-size:1em;color:MediumSeaGreen;"></span>
+				    		 	</a>
+				    		 	
+				    		 </div>
+				    	</div>
+				    </div>
+				    
+				    <div class="panel-body">
+				    	<table class="table table-striped">
+				    		<thead >
+				    			<tr>
+							      <th scope="col" th:text="#{adminArtiste.table.thead.id}">#</th>
+							      <th scope="col" th:text="#{adminArtiste.table.thead.nom}"></th>
+							      <th scope="col" th:text="#{adminArtiste.table.thead.prenom}"></th>
+							      <th scope="col" th:text="#{adminArtiste.table.thead.type}"></th>
+							      <th scope="col" th:text="#{adminArtiste.table.thead.supprimer}"></th>
+							      <th scope="col" th:text="#{adminArtiste.table.thead.modifier}"></th>
+							    </tr>
+				    		</thead>
+				    		<tbody>
+				    			 <tr th:each=" artiste : ${artistes}">
+							     	<th scope="row" th:text="${artiste.id}">1</th>
+							     	<td th:text="${artiste.firstName}"></td>
+							     	<td th:text="${artiste.lastName}"></td>
+							     	<td>
+										<ul th:each=" artType : ${artisteType}">
+											<ol th:if="${artiste.id == artType.artist.id}">
+												<div class="typeColor" th:text="${artType.type.type}"></div>
+											</ol>
+										</ul>
+							     			
+							     	</td>
+							      	<td>
+							      		<a th:href="@{deleteArtiste(artisteId=${artiste.id})}" onclick='return confirm ("Ete vous sure ? ")'>
+							      			<span class="glyphicon glyphicon-trash" style="font-size:1em;color:red;"></span>
+							      		</a>
+							      	</td>
+							      	<td>
+							      		<a th:href="@{editOrCreateArtiste(artisteId=${artiste.id})}">
+							      			<span class="glyphicon glyphicon-edit" style="font-size:1em;color:blue;"></span>
+							      		</a>
+							      	</td>
+							    </tr>
+				    		</tbody>
+				    	</table>
+				    </div>
+				    <div class="panel-footer">
+				    	<ul class = "pagination">
+<!-- 				th:class nous permet d'avoir une condition pour l'attribut class -->
+							<li th:class="${p == pageCourante}? active : _" th:each="p : ${numPage}" > 
+								<a th:href="@{artiste(page = ${p})}" th:text="${p}"></a> 
+							</li>
+						</ul>
+				    </div>
+				</div>
+			</div>
+		</section>
+	</body>
+</html>

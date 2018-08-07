@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html th:replace="~{adminLayout :: layout(~{::title}, ~{::section})}">
+	<head>
+		<meta charset="UTF-8">
+		<title th:text="#{adminArtiste.title}" >Insert title here</title>
+	</head>
+	<body>
+		<section>
+			<div class="container spacer">
+				<div class="col-md-8 col-sm-8 col-xs-12 spacer col-md-offset-2 col-sm-offset-2">
+					<div class="panel panel-default">
+					  	<div class="panel-heading" th:utext="#{adminArtiste.panel.heading}">Panel Heading</div>
+					  	<div class="panel-body">
+					  		<form th:action="@{saveOrUpdateArtiste}" method="post" th:object="${artistes}" modelAttribute="artistes">
+								<fieldset class="scheduler-border">
+									<legend class="scheduler-border" th:text="#{adminArtisteForm.fieldSet1.legend}"></legend>
+							
+									<div class="form-group">
+										<input type="hidden" th:field="*{id}" class="form-control" />
+									</div>
+									<div class="form-group">
+										<label class="control-label" th:text="#{adminArtiste.form.firstName}"></label>
+										<input type="text" th:field="*{firstName}" class="form-control" />
+										<span class="text-danger" th:errors="*{firstName}"></span>
+									</div>
+									<div class="form-group">
+										<label class="control-label" th:text="#{adminArtiste.form.lastName}"></label>
+										<input type="text" th:field="*{lastName}" class="form-control" />
+										<span class="text-danger" th:errors="*{lastName}"></span>
+									</div>
+								</fieldset>
+								
+								<fieldset class="scheduler-border">
+									<legend class="scheduler-border" th:text="#{adminArtisteForm.fieldSet2.legend}" />	
+									<label class="checkbox-inline" th:each="object : ${checkedObjectArray}">
+										<input type="checkbox"  th:name="artisteTypes" th:text="${object.object.type}" 
+											th:checked="${object.isChecked}" th:value="${object.object.id}" />
+									</label>
+									<div class="alert alert-danger"  th:if="${typeErrors==_}" >
+										<span th:text="#{adminArtiste.form.checkbox.errors}"></span>
+									</div>
+									
+								</fieldset>
+									
+								<div class="spacer">
+									<button type="submit" class="btn btn-block" th:text="#{adminArtiste.form.save}"></button>
+								</div>
+								
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+	</body>
+</html>

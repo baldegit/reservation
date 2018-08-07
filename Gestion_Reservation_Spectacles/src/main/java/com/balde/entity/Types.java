@@ -64,5 +64,4 @@ public class Types implements Serializable{
 		this.artistType = artistType;
 	}
 	
-	
 }

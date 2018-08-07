@@ -8,6 +8,7 @@ import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.balde.beans.CheckedObject;
 import com.balde.entity.*;
 import com.balde.repository.*;
 
@@ -17,6 +18,10 @@ public class AdminServiceImpl implements IAdminService{
 	
 	@Autowired
 	private TypesRepository typeRepo;
+	@Autowired
+	private ArtistsRepository artisteRepo;
+	@Autowired
+	private ArtistsTypeRepository artTypeRepo;
 
 	public AdminServiceImpl() {
 		super();
@@ -26,7 +31,7 @@ public class AdminServiceImpl implements IAdminService{
 	/*
 	 * Gestion du type d'artiste ----------------------------------------------
 	 * */
-	
+	//--------------------------------------------------------------------------------
 	@Override
 	public List<Object> findAllTypesByPage(int page,String motCle,int size) throws Exception {
 		// TODO Auto-generated method stub
@@ -48,6 +53,45 @@ public class AdminServiceImpl implements IAdminService{
 			// TODO: handle exception
 			throw new Exception(e.getMessage());
 		}
+	}
+	
+	@Override
+	public List<Types> findAllTypes() throws Exception {
+		// TODO Auto-generated method stub
+		try {
+			return this.typeRepo.findAll();
+		} catch (Exception e) {
+			// TODO: handle exception
+			throw new Exception(e.getMessage());
+		}
+	}
+	
+	@Override
+	public List<CheckedObject<Types>> findTypesChecked(int idArtiste) throws Exception {
+		// TODO Auto-generated method stub
+		List<Integer> typesId = new ArrayList<>();
+		List<Types> types;
+		List<CheckedObject<Types>> CheckedObjectArray = new ArrayList<>();;
+		try {
+			types = this.typeRepo.findAll();
+			List<ArtistType> artType = this.artTypeRepo.findArtitsteTypeByArtisteId(idArtiste);
+			
+			artType.forEach( at -> {
+				typesId.add(at.getType().getId());
+			});
+			
+			types.forEach(type ->{
+				CheckedObject<Types> tmp = new CheckedObject<Types>(type);
+				CheckedObjectArray.add(tmp);
+				if(typesId.contains(type.getId()))
+					tmp.setIsChecked(type.getId());
+			});
+		} catch (Exception e) {
+			// TODO: handle exception
+			throw new Exception(e.getMessage());
+		}
+		
+		return CheckedObjectArray;
 	}
 
 	@Override
@@ -85,5 +129,110 @@ public class AdminServiceImpl implements IAdminService{
 		}
 	}
 	
+	//--------------------------------------------------------------------------------
+	/*
+	 * Gestion des Artistes ----------------------------------------------
+	 * */
+	@Override
+	public List<Object> findAllArtisteByPage(int page, String motCle, int size) throws Exception {
+		// TODO Auto-generated method stub
+		List<Object> object = new ArrayList<>();
+		int [] numPage;
+		try {
+			
+			Page<Artists> artiste = this.artisteRepo.findArtisteByMotCle(motCle,PageRequest.of(page, size,Direction. ASC , "firstName"));
+			
+			numPage = new  int[artiste.getTotalPages()];
+			for(int i = 0; i < artiste.getTotalPages(); i++) 
+				numPage[i] = i;
+			
+			object.add(artiste);
+			object.add(numPage);
+			
+			return object;
+		} catch (Exception e) {
+			// TODO: handle exception
+			throw new Exception(e.getMessage());
+		}
+	}
+
+	@Override
+	public Optional<Artists> findArtisteById(int id) throws Exception {
+		// TODO Auto-generated method stub
+		try {
+			Optional<Artists> a = this.artisteRepo.findById(id);
+			return a;
+		} catch (Exception e) {
+			// TODO: handle exception
+			throw new Exception(e.getMessage());
+		}
+	}
+
+	@Override
+	public void saveArtiste(Artists a,Integer[] tabTypes) throws Exception {
+		// TODO Auto-generated method stub
+		List<ArtistType> artTypes = new ArrayList<>();
+		List<Types> types;
+		List<Integer> typeIds;
+		try {
+			System.out.println("@ ID "+a.getId());
+			typeIds = Arrays.asList(tabTypes);
+			
+			types = this.typeRepo.findAllById(typeIds);
+			
+			this.artisteRepo.save(a);
+			
+			types.forEach(t -> {
+				
+				artTypes.add(new ArtistType(a, t));
+			});
+			
+			this.artTypeRepo.deleteArtitsteTypeByArtisteId(a.getId());
+			System.out.println("@ ID "+a.getId());
+			
+			this.artTypeRepo.saveAll(artTypes);
+			
+		} catch (Exception e) {
+			// TODO: handle exception
+			throw new Exception(e.getMessage());
+		}
+	}
+
+	@Override
+	public void deleteArtisteById(int id) throws Exception {
+		// TODO Auto-generated method stub
+		try {
+			this.artisteRepo.deleteById(id);
+		} catch (Exception e) {
+			// TODO: handle exception
+			throw new Exception(e.getMessage());
+		}
+		
+	}
 	
+	// ArtistesTypes ------------------------------------------------------------
+	@Override
+	public List<ArtistType> getAllArtistesTypes() throws Exception {
+		// TODO Auto-generated method stub
+		try {
+			return this.artTypeRepo.findAll();
+		} catch (Exception e) {
+			// TODO: handle exception
+			throw new Exception(e.getMessage());
+		}
+		
+	}
+
+	@Override
+	public List<ArtistType> getArtistesByArtisteId(int idArtiste) throws Exception {
+		// TODO Auto-generated method stub
+		
+		try {
+			return this.artTypeRepo.findArtitsteTypeByArtisteId(idArtiste);
+		} catch (Exception e) {
+			// TODO: handle exception
+			throw new Exception(e.getMessage());
+		}
+	}
+
 }

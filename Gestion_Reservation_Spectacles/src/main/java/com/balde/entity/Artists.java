@@ -20,9 +20,13 @@ public class Artists implements Serializable{
 	private int id;
 	
 	@Column(name = "firtsname",nullable = false)
+	@NotEmpty
+	@Size(min=5,max=16)
 	private String firstName;
 	
 	@Column(name = "lastsname",nullable = false)
+	@NotEmpty
+	@Size(min=5,max=16)
 	private String lastName;
 	
 	@OneToMany(targetEntity = ArtistType.class,
