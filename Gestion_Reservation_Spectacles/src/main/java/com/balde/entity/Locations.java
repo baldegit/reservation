@@ -5,6 +5,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.*;
+import javax.validation.Valid;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "locations")
@@ -20,22 +24,30 @@ public class Locations implements Serializable{
 	private int id;
 	
 	@Column(nullable = false)
+	@Size(max = 3)
 	private String slug;
 	
 	@Column(nullable = false)
+	@NotEmpty
+	@Size(min = 5)
 	private String designation;
 	
 	@Column(nullable = false)
+	@NotEmpty
+	@Size(min = 5)
 	private String address;
 	
 	@ManyToOne
 	@JoinColumn(name = "locality_id", nullable = false)
+	@Valid
+	@NotNull
 	private Localities locality;
 	
 	@Column(name = "wabsite",nullable = false)
 	private String webSite;
 	
 	@Column(nullable = false)
+	@NotEmpty
 	private String phone;
 	
 	@OneToMany(targetEntity = Shows.class,

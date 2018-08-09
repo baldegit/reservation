@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<html th:replace="~{adminLayout :: layout(~{::title}, ~{::section})}">
+<html th:replace="~{adminTemplates/adminLayout :: layout(~{::title}, ~{::section})}">
 	<head>
 		<meta charset="UTF-8">
-		<title th:text="#{adminType.title}">Insert title here</title>
+		<title th:text="#{adminArtiste.title}">Insert title here</title>
 	</head>
 	<body>
 		<section>
@@ -12,10 +12,10 @@
 				    	
 				    	<div class="row">
 				    		 <div class="col-lg-4">
-				    		 	<span th:utext="#{adminType.panel.headingL}"></span>
+				    		 	<span th:utext="#{adminType.panel.ArtisteL}"></span>
 				    		 </div>
 				    		 <div class="col-lg-3 " >
-				    		 	<form th:action="@{type}" method="get">
+				    		 	<form th:action="@{artiste}" method="get">
 				    		 		<div class="input-group custom-search-form">
 		                                <input type="text" class="form-control" name="motCle" th:value="${motCle}">
 		                                <span class="input-group-btn">
@@ -27,7 +27,7 @@
 				    		 	</form>
 				    		 </div>
 				    		 <div class="col-lg-1 col-lg-offset-4">
-				    		 	<a th:href="@{editOrCreateType}" th:title="#{adminType.panel.headingR}">
+				    		 	<a th:href="@{editOrCreate}" th:title="#{adminType.panel.ArtisteR}">
 				    		 		<span class="glyphicon glyphicon-plus-sign" style="font-size:1em;color:MediumSeaGreen;"></span>
 				    		 	</a>
 				    		 	
@@ -39,23 +39,34 @@
 				    	<table class="table table-striped">
 				    		<thead >
 				    			<tr>
-							      <th scope="col" th:text="#{adminType.table.thead.id}">#</th>
-							      <th scope="col" th:text="#{adminType.table.thead.type}"></th>
-							      <th scope="col" th:text="#{adminType.table.thead.supprimer}"></th>
-							      <th scope="col" th:text="#{adminType.table.thead.modifier}"></th>
+							      <th scope="col" th:text="#{adminArtiste.table.thead.id}">#</th>
+							      <th scope="col" th:text="#{adminArtiste.table.thead.nom}"></th>
+							      <th scope="col" th:text="#{adminArtiste.table.thead.prenom}"></th>
+							      <th scope="col" th:text="#{adminArtiste.table.thead.type}"></th>
+							      <th scope="col" th:text="#{adminArtiste.table.thead.supprimer}"></th>
+							      <th scope="col" th:text="#{adminArtiste.table.thead.modifier}"></th>
 							    </tr>
 				    		</thead>
 				    		<tbody>
-				    			 <tr th:each=" type : ${types}">
-							     	<th scope="row" th:text="${type.id}">1</th>
-							     	<td th:text="${type.type}"></td>
+				    			 <tr th:each=" artiste : ${artistes}">
+							     	<th scope="row" th:text="${artiste.id}">1</th>
+							     	<td th:text="${artiste.firstName}"></td>
+							     	<td th:text="${artiste.lastName}"></td>
+							     	<td>
+										<ul th:each=" artType : ${artisteType}">
+											<ol th:if="${artiste.id == artType.artist.id}">
+												<div class="typeColor" th:text="${artType.type.type}"></div>
+											</ol>
+										</ul>
+							     			
+							     	</td>
 							      	<td>
-							      		<a th:href="@{deleteType(typeId=${type.id})}" onclick='return confirm ("Ete vous sure ? ")'>
+							      		<a th:href="@{delete(artisteId=${artiste.id})}" onclick='return confirm ("Ete vous sure ? ")'>
 							      			<span class="glyphicon glyphicon-trash" style="font-size:1em;color:red;"></span>
 							      		</a>
 							      	</td>
 							      	<td>
-							      		<a th:href="@{editOrCreateType(typeId=${type.id})}">
+							      		<a th:href="@{editOrCreate(artisteId=${artiste.id})}">
 							      			<span class="glyphicon glyphicon-edit" style="font-size:1em;color:blue;"></span>
 							      		</a>
 							      	</td>
@@ -67,7 +78,7 @@
 				    	<ul class = "pagination">
 <!-- 				th:class nous permet d'avoir une condition pour l'attribut class -->
 							<li th:class="${p == pageCourante}? active : _" th:each="p : ${numPage}" > 
-								<a th:href="@{type(page = ${p})}" th:text="${p}"></a> 
+								<a th:href="@{artiste(page = ${p})}" th:text="${p}"></a> 
 							</li>
 						</ul>
 				    </div>

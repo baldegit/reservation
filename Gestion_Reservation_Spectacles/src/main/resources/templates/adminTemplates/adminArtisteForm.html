@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html th:replace="~{adminLayout :: layout(~{::title}, ~{::section})}">
+<html th:replace="~{adminTemplates/adminLayout :: layout(~{::title}, ~{::section})}">
 	<head>
 		<meta charset="UTF-8">
 		<title th:text="#{adminArtiste.title}" >Insert title here</title>
@@ -11,7 +11,7 @@
 					<div class="panel panel-default">
 					  	<div class="panel-heading" th:utext="#{adminArtiste.panel.heading}">Panel Heading</div>
 					  	<div class="panel-body">
-					  		<form th:action="@{saveOrUpdateArtiste}" method="post" th:object="${artistes}" modelAttribute="artistes">
+					  		<form th:action="@{saveOrUpdate}" method="post" th:object="${artistes}" modelAttribute="artistes">
 								<fieldset class="scheduler-border">
 									<legend class="scheduler-border" th:text="#{adminArtisteForm.fieldSet1.legend}"></legend>
 							

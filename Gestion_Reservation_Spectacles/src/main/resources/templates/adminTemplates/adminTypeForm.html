@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html th:replace="~{adminLayout :: layout(~{::title}, ~{::section})}">
+<html th:replace="~{adminTemplates/adminLayout :: layout(~{::title}, ~{::section})}">
 	<head>
 		<meta charset="UTF-8">
 		<title th:text="#{adminTypeForm}">Insert title here</title>
@@ -11,7 +11,7 @@
 				<div class="panel panel-default">
 				  	<div class="panel-heading" th:utext="#{adminTypeForm.panel.heading}">Panel Heading</div>
 				  	<div class="panel-body">
-				  		<form th:action="@{saveOrUpdateType}" method="post" th:object="${types}" >
+				  		<form th:action="@{saveOrUpdate}" method="post" th:object="${types}" >
 				
 							<div class="form-group">
 								<input type="hidden" th:field="*{id}" class="form-control" />

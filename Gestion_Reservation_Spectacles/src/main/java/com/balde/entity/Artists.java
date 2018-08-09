@@ -34,6 +34,11 @@ public class Artists implements Serializable{
 				cascade = CascadeType.ALL)
 	private List<ArtistType> artistType = new ArrayList<>();
 	
+	@OneToMany(targetEntity = ArtistShow.class,
+			cascade = CascadeType.ALL,
+			mappedBy = "artiste")
+	private List<ArtistShow> artistShow = new ArrayList<>();
+	
 	public Artists() {
 		super();
 		// TODO Auto-generated constructor stub
@@ -76,12 +81,20 @@ public class Artists implements Serializable{
 		this.lastName = lastName;
 	}
 
-	public List<ArtistType> getArtisteType() {
+	public List<ArtistType> getArtistType() {
 		return artistType;
 	}
 
-	public void setArtisteType(List<ArtistType> artistType) {
+	public void setArtistType(List<ArtistType> artistType) {
 		this.artistType = artistType;
+	}
+
+	public List<ArtistShow> getArtistShow() {
+		return artistShow;
+	}
+
+	public void setArtistShow(List<ArtistShow> artistShow) {
+		this.artistShow = artistShow;
 	}
 	
 }

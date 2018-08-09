@@ -27,11 +27,6 @@ public class ArtistType implements Serializable{
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name = "type_id", nullable = false)
 	private Types type;
-	
-	@OneToMany(targetEntity = ArtistTypeShow.class,
-				cascade = CascadeType.ALL,
-				mappedBy = "artistType")
-	private List<ArtistTypeShow> artistTypeShow = new ArrayList<>();
 
 	public ArtistType() {
 		super();
@@ -68,13 +63,4 @@ public class ArtistType implements Serializable{
 		this.type = type;
 	}
 
-	public List<ArtistTypeShow> getArtistTypeShow() {
-		return artistTypeShow;
-	}
-
-	public void setArtistTypeShow(List<ArtistTypeShow> artistTypeShow) {
-		this.artistTypeShow = artistTypeShow;
-	}
-
-	
 }

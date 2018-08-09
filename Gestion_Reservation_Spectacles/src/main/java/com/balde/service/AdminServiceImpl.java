@@ -22,6 +22,10 @@ public class AdminServiceImpl implements IAdminService{
 	private ArtistsRepository artisteRepo;
 	@Autowired
 	private ArtistsTypeRepository artTypeRepo;
+	@Autowired
+	private LocalitiesRepository localiteRepo;
+	@Autowired
+	private LocationsRepository locationRepo;
 
 	public AdminServiceImpl() {
 		super();
@@ -234,5 +238,142 @@ public class AdminServiceImpl implements IAdminService{
 			throw new Exception(e.getMessage());
 		}
 	}
+	//--------------------------------------------------------------------------------
+		/*
+		 * Gestion des Localites ----------------------------------------------
+		 * */
+
+	@Override
+	public List<Object> findAllLocaliteByPage(int page, String motCle, int size) throws Exception {
+		// TODO Auto-generated method stub
+		List<Object> object = new ArrayList<>();
+		int [] numPage;
+		try {
+			
+			Page<Localities> localites = this.localiteRepo.findLocaliteByCodePostal(motCle,PageRequest.of(page, size,Direction. ASC , "postalCode"));
+			
+			numPage = new  int[localites.getTotalPages()];
+			for(int i = 0; i < localites.getTotalPages(); i++) 
+				numPage[i] = i;
+			
+			object.add(localites);
+			object.add(numPage);
+			
+			return object;
+		} catch (Exception e) {
+			// TODO: handle exception
+			throw new Exception(e.getMessage());
+		}
+	}
+	
+	@Override
+	public List<Localities> findAllLocalite() throws Exception {
+		// TODO Auto-generated method stub
+		try {
+			return this.localiteRepo.findAll();
+		} catch (Exception e) {
+			// TODO: handle exception
+			throw new Exception(e.getMessage());
+		}
+	}
+
+	@Override
+	public Optional<Localities> findLocaliteById(int id) throws Exception {
+		// TODO Auto-generated method stub
+		try {
+			Optional<Localities> l = this.localiteRepo.findById(id);
+			return l;
+		} catch (Exception e) {
+			// TODO: handle exception
+			throw new Exception(e.getMessage());
+		}
+	}
+
+	@Override
+	public Optional<Localities> saveLocalite(Localities l) throws Exception {
+		// TODO Auto-generated method stub
+		try {
+			Localities localite = this.localiteRepo.save(l);
+			return Optional.ofNullable(localite);
+		} catch (Exception e) {
+			// TODO: handle exception
+			throw new Exception(e.getMessage());
+		}
+	}
+
+	@Override
+	public void deleteLocaliteById(int id) throws Exception {
+		// TODO Auto-generated method stub
+		try {
+			this.localiteRepo.deleteById(id);
+		} catch (Exception e) {
+			// TODO: handle exception
+			throw new Exception(e.getMessage());
+		}
+		
+	}
+	//--------------------------------------------------------------------------------
+			/*
+			 * Gestion des Location ----------------------------------------------
+			 * */
+
+	@Override
+	public List<Object> findAllLocationByPage(int page, String motCle, int size) throws Exception {
+		// TODO Auto-generated method stub
+		List<Object> object = new ArrayList<>();
+		int [] numPage;
+		try {
+			
+			Page<Locations> locations = this.locationRepo.findLocationByAdresse(motCle,PageRequest.of(page, size,Direction. ASC , "address"));
+			
+			numPage = new  int[locations.getTotalPages()];
+			for(int i = 0; i < locations.getTotalPages(); i++) 
+				numPage[i] = i;
+			
+			object.add(locations);
+			object.add(numPage);
+			
+			return object;
+		} catch (Exception e) {
+			// TODO: handle exception
+			throw new Exception(e.getMessage());
+		}
+	}
+
+	@Override
+	public Optional<Locations> findLocationById(int id) throws Exception {
+		// TODO Auto-generated method stub
+		try {
+			Optional<Locations> l = this.locationRepo.findById(id);
+			return l;
+		} catch (Exception e) {
+			// TODO: handle exception
+			throw new Exception(e.getMessage());
+		}
+	}
+
+	@Override
+	public Optional<Locations> saveLocation(Locations l) throws Exception {
+		// TODO Auto-generated method stub
+		try {
+			Locations location = this.locationRepo.save(l);
+			return Optional.ofNullable(location);
+		} catch (Exception e) {
+			// TODO: handle exception
+			throw new Exception(e.getMessage());
+		}
+	}
+
+	@Override
+	public void deleteLocationById(int id) throws Exception {
+		// TODO Auto-generated method stub
+		try {
+			this.locationRepo.deleteById(id);
+		} catch (Exception e) {
+			// TODO: handle exception
+			throw new Exception(e.getMessage());
+		}
+	}
+	
 
 }

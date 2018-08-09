@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html th:replace="~{adminTemplates/adminLayout :: layout(~{::title}, ~{::section})}">
+	<head>
+		<meta charset="UTF-8">
+		<title th:text="#{adminType.title}">Insert title here</title>
+	</head>
+	<body>
+		<section>
+			<div class="container spacer">
+			  	<div class="panel panel-default">
+				    <div class="panel-heading" >
+				    	
+				    	<div class="row">
+				    		 <div class="col-lg-4">
+				    		 	<span th:utext="#{adminType.panel.headingL}"></span>
+				    		 </div>
+				    		 <div class="col-lg-3 " >
+				    		 	<form th:action="@{type}" method="get">
+				    		 		<div class="input-group custom-search-form">
+		                                <input type="text" class="form-control" name="motCle" th:value="${motCle}">
+		                                <span class="input-group-btn">
+			                                <button class="btn btn-default" type="submit">
+			                                    <i class="fa fa-search"></i>
+			                                </button>
+		                            	</span>
+	                            	</div>
+				    		 	</form>
+				    		 </div>
+				    		 <div class="col-lg-1 col-lg-offset-4">
+				    		 	<a th:href="@{editOrCreate}" th:title="#{adminType.panel.headingR}">
+				    		 		<span class="glyphicon glyphicon-plus-sign" style="font-size:1em;color:MediumSeaGreen;"></span>
+				    		 	</a>
+				    		 	
+				    		 </div>
+				    	</div>
+				    </div>
+				    
+				    <div class="panel-body">
+				    	<table class="table table-striped">
+				    		<thead >
+				    			<tr>
+							      <th scope="col" th:text="#{adminType.table.thead.id}">#</th>
+							      <th scope="col" th:text="#{adminType.table.thead.type}"></th>
+							      <th scope="col" th:text="#{adminType.table.thead.supprimer}"></th>
+							      <th scope="col" th:text="#{adminType.table.thead.modifier}"></th>
+							    </tr>
+				    		</thead>
+				    		<tbody>
+				    			 <tr th:each=" type : ${types}">
+							     	<th scope="row" th:text="${type.id}">1</th>
+							     	<td th:text="${type.type}"></td>
+							      	<td>
+							      		<a th:href="@{delete(typeId=${type.id})}" onclick='return confirm ("Ete vous sure ? ")'>
+							      			<span class="glyphicon glyphicon-trash" style="font-size:1em;color:red;"></span>
+							      		</a>
+							      	</td>
+							      	<td>
+							      		<a th:href="@{editOrCreate(typeId=${type.id})}">
+							      			<span class="glyphicon glyphicon-edit" style="font-size:1em;color:blue;"></span>
+							      		</a>
+							      	</td>
+							    </tr>
+				    		</tbody>
+				    	</table>
+				    </div>
+				    <div class="panel-footer">
+				    	<ul class = "pagination">
+<!-- 				th:class nous permet d'avoir une condition pour l'attribut class -->
+							<li th:class="${p == pageCourante}? active : _" th:each="p : ${numPage}" > 
+								<a th:href="@{type(page = ${p})}" th:text="${p}"></a> 
+							</li>
+						</ul>
+				    </div>
+				</div>
+			</div>
+		</section>
+	</body>
+</html>

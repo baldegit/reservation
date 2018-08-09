@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html th:replace="~{adminTemplates/adminLayout :: layout(~{::title}, ~{::section})}">
+	<head>
+		<meta charset="UTF-8">
+		<title th:text="#{adminLocation.title}">Insert title here</title>
+	</head>
+	<body>
+		<section>
+			<div class="container spacer">
+			  	<div class="panel panel-default">
+				    <div class="panel-heading" >
+				    	
+				    	<div class="row">
+				    		 <div class="col-lg-4">
+				    		 	<span th:utext="#{adminLocation.panel.headingL}"></span>
+				    		 </div>
+				    		 <div class="col-lg-3 " >
+				    		 	<form th:action="@{location}" method="get">
+				    		 		<div class="input-group custom-search-form">
+		                                <input type="text" class="form-control" name="motCle" th:value="${motCle}">
+		                                <span class="input-group-btn">
+			                                <button class="btn btn-default" type="submit">
+			                                    <i class="fa fa-search"></i>
+			                                </button>
+		                            	</span>
+	                            	</div>
+				    		 	</form>
+				    		 </div>
+				    		 <div class="col-lg-1 col-lg-offset-4">
+				    		 	<a th:href="@{editOrCreate}" th:title="#{adminLocation.panel.headingR}">
+				    		 		<span class="glyphicon glyphicon-plus-sign" style="font-size:1em;color:MediumSeaGreen;"></span>
+				    		 	</a>
+				    		 	
+				    		 </div>
+				    	</div>
+				    </div>
+				    
+				    <div class="panel-body">
+				    	<table class="table table-striped">
+				    		<thead >
+				    			<tr>
+							      <th scope="col" th:text="#{adminLocation.table.thead.id}">#</th>
+							      <th scope="col" th:text="#{adminLocation.table.thead.address}"></th>
+							      <th scope="col" th:text="#{adminLocation.table.thead.codePostal}"></th>
+							      <th scope="col" th:text="#{adminLocation.table.thead.designation}"></th>
+							      <th scope="col" th:text="#{adminLocation.table.thead.slug}"></th>
+							      <th scope="col" th:text="#{adminLocation.table.thead.telephone}"></th>
+							      <th scope="col" th:text="#{adminlocalite.table.thead.supprimer}"></th>
+							      <th scope="col" th:text="#{adminlocalite.table.thead.modifier}"></th>
+							    </tr>
+				    		</thead>
+				    		<tbody>
+				    			 <tr th:each=" location : ${locations}">
+							     	<th scope="row" th:text="${location.id}">1</th>
+							     	<td th:text="${location.address}"></td>
+							     	<td th:text="${location.locality.postalCode}"></td>
+							     	<td th:text="${location.designation}"></td>
+							     	<td th:text="${location.slug}"></td>
+							     	<td th:text="${location.phone}"></td>
+							      	<td>
+							      		<a th:href="@{delete(locationId=${location.id})}" onclick='return confirm ("Ete vous sure ? ")'>
+							      			<span class="glyphicon glyphicon-trash" style="font-size:1em;color:red;"></span>
+							      		</a>
+							      	</td>
+							      	<td>
+							      		<a th:href="@{editOrCreate(locationId=${location.id})}">
+							      			<span class="glyphicon glyphicon-edit" style="font-size:1em;color:blue;"></span>
+							      		</a>
+							      	</td>
+							    </tr>
+				    		</tbody>
+				    	</table>
+				    </div>
+				    <div class="panel-footer">
+				    	<ul class = "pagination">
+<!-- 				th:class nous permet d'avoir une condition pour l'attribut class -->
+							<li th:class="${p == pageCourante}? active : _" th:each="p : ${numPage}" > 
+								<a th:href="@{location(page = ${p})}" th:text="${p}"></a> 
+							</li>
+						</ul>
+				    </div>
+				</div>
+			</div>
+		</section>
+	</body>
+</html>

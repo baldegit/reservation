@@ -25,7 +25,7 @@
 	                        <!--  -->
 	                        
 	                        <li>
-	                            <a th:href="@{dashboard}"><i class="fa fa-dashboard fa-fw"></i> <span th:text="#{admin.dasboard}"/></a>
+	                            <a th:href="@{/admin/}"><i class="fa fa-dashboard fa-fw"></i> <span th:text="#{admin.dasboard}"/></a>
 	                        </li>
 	                        <li>
 	                            <a href="#">
@@ -34,16 +34,49 @@
 	                           	</a>
 	                            <ul class="nav nav-second-level">
 	                                <li>
-	                                    <a th:href="@{artiste}" th:text="#{admin.Artite}">Flot Charts</a>
+	                                    <a th:href="@{/admin/artiste/}" th:text="#{admin.Artites.Artite}">Flot Charts</a>
 	                                </li>
 	                                <li>
-	                                    <a th:href="@{type}" th:text="#{admin.Type}">Morris.js Charts</a>
+	                                    <a th:href="@{/admin/type/}" th:text="#{admin.Artites.Type}">Morris.js Charts</a>
 	                                </li>
 	                            </ul>
 	                            <!-- /.nav-second-level -->
 	                        </li>
 	                        <li>
-	                            <a href="tables.html"><i class="fa fa-table fa-fw"></i> Tables</a>
+	                            <a href="#">
+	                            	<i class="fa fa-stack-overflow fa-fw"></i> 
+	                            	<span th:text="#{admin.Catalogues}"/> <span class="fa arrow"></span>
+	                           	</a>
+	                            <ul class="nav nav-second-level">
+	                            	<li>
+	                                    <a th:href="@{/admin/representation/}" th:text="#{admin.Catalogues.Representations}">Morris.js Charts</a>
+	                                </li>
+	                                <li>
+	                                    <a th:href="@{/admin/show/}" th:text="#{admin.Catalogues.Shows}">Morris.js Charts</a>
+	                                </li>
+	                                <li>
+	                                    <a th:href="@{/admin/location/}" th:text="#{admin.Catalogues.Locations}">Flot Charts</a>
+	                                </li>
+	                                <li>
+	                                    <a th:href="@{/admin/localite/}" th:text="#{admin.Catalogues.Localites}">Morris.js Charts</a>
+	                                </li>
+	                            </ul>
+	                            <!-- /.nav-second-level -->
+	                        </li>
+	                        <li>
+	                            <a href="#">
+	                            	<i class="fa fa-users fa-fw"></i> 
+	                            	<span th:text="#{admin.Utilsateurs}"/> <span class="fa arrow"></span>
+	                           	</a>
+	                            <ul class="nav nav-second-level">
+	                                <li>
+	                                    <a th:href="@{/admin/user/}" th:text="#{admin.Utilsateurs.Users}">Flot Charts</a>
+	                                </li>
+	                                <li>
+	                                    <a th:href="@{/admin/role/}" th:text="#{admin.Utilsateurs.Roles}">Morris.js Charts</a>
+	                                </li>
+	                            </ul>
+	                            <!-- /.nav-second-level -->
 	                        </li>
 	                        
 	                    </ul>

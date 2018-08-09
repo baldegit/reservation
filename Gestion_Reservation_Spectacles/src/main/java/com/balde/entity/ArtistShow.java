@@ -6,7 +6,7 @@ import javax.persistence.*;
 
 @Entity
 @Table(name ="artist_type_show")
-public class ArtistTypeShow implements Serializable{
+public class ArtistShow implements Serializable{
 
 	/**
 	 * 
@@ -18,21 +18,21 @@ public class ArtistTypeShow implements Serializable{
 	private int id;
 	
 	@ManyToOne
-	@JoinColumn(name = "artist_type_id", nullable = false)
-	private ArtistType artistType;
+	@JoinColumn(name = "artist_id", nullable = false)
+	private Artists artiste;
 	
 	@ManyToOne
 	@JoinColumn(name = "show_id", nullable = false)
 	private Shows show;
 
-	public ArtistTypeShow() {
+	public ArtistShow() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public ArtistTypeShow(ArtistType artistType, Shows show) {
+	public ArtistShow(Artists artistType, Shows show) {
 		super();
-		this.artistType = artistType;
+		this.artiste = artistType;
 		this.show = show;
 	}
 
@@ -43,13 +43,13 @@ public class ArtistTypeShow implements Serializable{
 	public void setId(int id) {
 		this.id = id;
 	}
-
-	public ArtistType getArtistType() {
-		return artistType;
+	
+	public Artists getArtiste() {
+		return artiste;
 	}
 
-	public void setArtistType(ArtistType artistType) {
-		this.artistType = artistType;
+	public void setArtiste(Artists artiste) {
+		this.artiste = artiste;
 	}
 
 	public Shows getShow() {

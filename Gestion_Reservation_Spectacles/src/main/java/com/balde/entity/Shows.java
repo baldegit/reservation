@@ -49,10 +49,10 @@ public class Shows implements Serializable{
 			mappedBy = "show")
 	private List<Representations> representation = new ArrayList<>();
 	
-	@OneToMany(targetEntity = ArtistTypeShow.class,
+	@OneToMany(targetEntity = ArtistShow.class,
 			cascade = CascadeType.ALL,
 			mappedBy = "show")
-	private List<ArtistTypeShow> artistType = new ArrayList<>();
+	private List<ArtistShow> artistShow = new ArrayList<>();
 
 	public Shows() {
 		super();
@@ -143,12 +143,12 @@ public class Shows implements Serializable{
 		this.representation = representation;
 	}
 
-	public List<ArtistTypeShow> getArtistType() {
-		return artistType;
+	public List<ArtistShow> getArtistType() {
+		return artistShow;
 	}
 
-	public void setArtistType(List<ArtistTypeShow> artistType) {
-		this.artistType = artistType;
+	public void setArtistType(List<ArtistShow> artistShow) {
+		this.artistShow = artistShow;
 	}
 	
 }

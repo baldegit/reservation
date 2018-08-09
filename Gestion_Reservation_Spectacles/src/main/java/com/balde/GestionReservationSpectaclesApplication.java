@@ -18,7 +18,7 @@ public class GestionReservationSpectaclesApplication implements CommandLineRunne
 	@Autowired
 	ArtistsTypeRepository artistType;
 	@Autowired
-	ArtistTypeShowRepository artistTypeShow;
+	ArtistShowRepository artistShow;
 	@Autowired
 	LocalitiesRepository localities;
 	@Autowired
@@ -95,14 +95,14 @@ public class GestionReservationSpectaclesApplication implements CommandLineRunne
 //		
 //				
 //		// creation de artisteTypeShow
-//		ArtistTypeShow ats0 = new ArtistTypeShow(at2, s0);
-//		this.artistTypeShow.saveAndFlush(ats0);
-//		ArtistTypeShow ats1 = new ArtistTypeShow(at1, s1);
-//		this.artistTypeShow.saveAndFlush(ats1);
-//		ArtistTypeShow ats2 = new ArtistTypeShow(at2, s2);
-//		this.artistTypeShow.saveAndFlush(ats2);
-//		ArtistTypeShow ats3 = new ArtistTypeShow(at1, s3);
-//		this.artistTypeShow.saveAndFlush(ats3);
+//		ArtistShow ats0 = new ArtistShow(a2, s0);
+//		this.artistShow.saveAndFlush(ats0);
+//		ArtistShow ats1 = new ArtistShow(a1, s1);
+//		this.artistShow.saveAndFlush(ats1);
+//		ArtistShow ats2 = new ArtistShow(a2, s2);
+//		this.artistShow.saveAndFlush(ats2);
+//		ArtistShow ats3 = new ArtistShow(a1, s3);
+//		this.artistShow.saveAndFlush(ats3);
 //		
 //		//creation de representation, user et role
 //		Representations r0 = new Representations(s0, l11, new Date());
