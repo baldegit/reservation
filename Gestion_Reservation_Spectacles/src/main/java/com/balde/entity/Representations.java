@@ -4,6 +4,9 @@ import java.io.Serializable;
 import java.util.*;
 
 import javax.persistence.*;
+import javax.validation.Valid;
+import javax.validation.constraints.FutureOrPresent;
+import javax.validation.constraints.NotNull;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -24,6 +27,8 @@ public class Representations implements Serializable{
 	
 	@ManyToOne
 	@JoinColumn(name = "show_id", nullable = false)
+	@NotNull
+	@Valid
 	private Shows show;
 	
 	@ManyToOne
@@ -31,6 +36,8 @@ public class Representations implements Serializable{
 	private Locations location;
 	
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	@NotNull
+	@FutureOrPresent
 	private Date date;
 	
 	@OneToMany(targetEntity = RepresentationUser.class,

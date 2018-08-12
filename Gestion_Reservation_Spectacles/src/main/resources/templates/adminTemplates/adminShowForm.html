@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html th:replace="~{adminTemplates/adminLayout :: layout(~{::title}, ~{::section})}">
+	<head>
+		<meta charset="UTF-8">
+		<title th:text="#{adminShowForm.title}">Insert title here</title>
+	</head>
+	<body>
+		<section >
+		<div class="container spacer">
+			<div class="col-md-6 col-sm-6 col-xs-12 spacer col-md-offset-3 col-sm-offset-3">
+				<div class="panel panel-default">
+				  	<div class="panel-heading" th:utext="#{adminShowForm.panel.heading}">Panel Heading</div>
+				  	<div class="panel-body">
+				  		<form th:action="@{saveOrUpdate}" method="post" th:object="${show}" modelAttribute="show" enctype="multipart/form-data">
+							<fieldset class="scheduler-border">
+								<legend class="scheduler-border" th:text="#{adminShowForm.fieldSet.legend.show}" />
+									<div class="form-group">
+										<input type="hidden" th:field="*{id}" class="form-control" />
+									</div>
+									<div class="form-group">
+										<label class="control-label" th:text="#{adminShowForm.title}"></label>
+										<input type="text" th:field="*{title}" class="form-control" />
+										<span class="text-danger" th:errors="*{title}"></span>
+									</div>
+									<div class="form-group">
+										<label class="control-label" th:text="#{adminShowForm.slug}"></label>
+										<input type="text" th:field="*{slug}" class="form-control" />
+										<span class="text-danger" th:errors="*{slug}"></span>
+									</div>
+									<div class="form-group">
+										<label class="control-label" th:text="#{adminShowForm.prix}"></label>
+										<input type="number" th:field="*{price}" class="form-control" />
+										<span class="text-danger" th:errors="*{price}"></span>
+									</div>
+									<div class="form-group">
+										<label class="control-label" th:text="#{adminShowForm.place}"></label>
+										<input type="number" th:field="*{bookable}" class="form-control" />
+										<span class="text-danger" th:errors="*{bookable}"></span>
+									</div>
+									<div class="form-group">
+										<label class="control-label" th:text="#{adminShowForm.textarea}"></label>
+										<textarea rows="4" cols="50" th:field="*{description}" class="form-control"></textarea>
+										<span class="text-danger" th:errors="*{description}"></span>
+									</div>
+									<div class="form-group">
+										<label class="control-label" th:text="#{adminShowForm.select.label}"></label>
+										<select th:field="*{location}" class="form-control" >
+											<option th:value="NULL" th:text="#{adminShowForm.select.location}"></option>
+											<option th:each="l : ${locations}" th:value="${{l}}" th:text="${l.designation}"></option>
+										</select>
+										<span class="text-danger" th:errors="*{location}"></span>
+									</div>
+							</fieldset>
+							
+							<fieldset class="scheduler-border">
+								<legend class="scheduler-border" th:text="#{adminShowForm.fieldSet.legend.artiste}" />
+								<label class="checkbox-inline" th:each="object : ${checkedObjectArray}">
+									<input type="checkbox"  th:name="artistes" th:text="|${object.object.firstName}-${object.object.lastName}|" 
+										th:checked="${object.isChecked}" th:value="${object.object.id}" />
+								</label>
+								<div class="alert alert-danger"  th:if="${typeErrors==_}" >
+									<span th:text="#{adminShowForm.form.checkbox.errors}"></span>
+								</div>	
+							</fieldset>
+							
+							<fieldset class="scheduler-border">
+								<legend class="scheduler-border" th:text="#{adminShowForm.fieldSet.legend.image}" />
+								<div class="form-group">
+									<label class="control-label" th:text="#{adminShowForm.Image}"></label>
+									<input type="file" name="picture" class="form-control" />
+									
+									<img class="img-thumbnail" th:src="@{getPhoto(idShow=${show.id})}" width="100" height="100">
+									
+									<span class="text-danger" th:text="${file} ? #{adminShowForm.photo.vide} : _ "></span>
+								</div>
+							</fieldset>
+							<div class="spacer">
+								<button type="submit" class="btn btn-block" th:text="#{adminLocationForm.save}"></button>
+							</div>
+							
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+			
+			
+		</section>
+	</body>
+</html>

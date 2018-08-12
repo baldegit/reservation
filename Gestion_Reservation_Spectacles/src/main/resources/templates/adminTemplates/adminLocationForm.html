@@ -43,8 +43,9 @@
 										<span class="text-danger" th:errors="*{webSite}"></span>
 									</div>
 									<div class="form-group">
-										<select th:field="*{locality}">
-											<option th:value="NULL" text="---Select Type---"></option>
+										<label class="control-label" th:text="#{adminLocationForm.select.label}"></label>
+										<select th:field="*{locality}" class="form-control" >
+											<option th:value="NULL" th:text="#{adminLocationForm.select.localite}"></option>
 											<option th:each="l : ${localite}" th:value="${{l}}" th:text="${l.locality}"></option>
 										</select>
 										<span class="text-danger" th:errors="*{locality}"></span>

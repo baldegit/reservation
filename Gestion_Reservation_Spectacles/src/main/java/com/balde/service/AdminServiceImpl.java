@@ -1,5 +1,6 @@
 package com.balde.service;
 
+import java.io.File;
 import java.util.*;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,6 +8,7 @@ import org.springframework.data.domain.*;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.balde.beans.CheckedObject;
 import com.balde.entity.*;
@@ -26,6 +28,17 @@ public class AdminServiceImpl implements IAdminService{
 	private LocalitiesRepository localiteRepo;
 	@Autowired
 	private LocationsRepository locationRepo;
+	@Autowired
+	private ShowsRepository showRepo;
+	@Autowired
+	private ArtistShowRepository artShowRepo;
+	@Autowired
+	private RepresentationsRepository representationRepo;
+	@Autowired
+	private UsersRepository userRepo;
+	
+	@Autowired
+	private IGestionFiles gestionFile;
 
 	public AdminServiceImpl() {
 		super();
@@ -171,6 +184,35 @@ public class AdminServiceImpl implements IAdminService{
 			throw new Exception(e.getMessage());
 		}
 	}
+	
+	@Override
+	public List<CheckedObject<Artists>> findArtisteChecked(int idShow) throws Exception {
+		// TODO Auto-generated method stub
+		List<Integer> artisteId = new ArrayList<>();
+		List<Artists> artistes;
+		List<CheckedObject<Artists>> CheckedObjectArray = new ArrayList<>();;
+		try {
+			artistes = this.artisteRepo.findAll();
+			List<ArtistShow> artShow = this.artShowRepo.findArtitsteShowByShowId(idShow);
+			
+			artShow.forEach( as -> {
+				artisteId.add(as.getArtiste().getId());
+			});
+		
+			artistes.forEach(art ->{
+				CheckedObject<Artists> tmp = new CheckedObject<>(art);
+				
+				CheckedObjectArray.add(tmp);
+				if(artisteId.contains(art.getId()))
+					tmp.setIsChecked(art.getId());
+			});
+		} catch (Exception e) {
+			// TODO: handle exception
+			throw new Exception(e.getMessage());
+		}
+		
+		return CheckedObjectArray;
+	}
 
 	@Override
 	public void saveArtiste(Artists a,Integer[] tabTypes) throws Exception {
@@ -179,7 +221,6 @@ public class AdminServiceImpl implements IAdminService{
 		List<Types> types;
 		List<Integer> typeIds;
 		try {
-			System.out.println("@ ID "+a.getId());
 			typeIds = Arrays.asList(tabTypes);
 			
 			types = this.typeRepo.findAllById(typeIds);
@@ -192,7 +233,6 @@ public class AdminServiceImpl implements IAdminService{
 			});
 			
 			this.artTypeRepo.deleteArtitsteTypeByArtisteId(a.getId());
-			System.out.println("@ ID "+a.getId());
 			
 			this.artTypeRepo.saveAll(artTypes);
 			
@@ -238,6 +278,21 @@ public class AdminServiceImpl implements IAdminService{
 			throw new Exception(e.getMessage());
 		}
 	}
+	//--------------------------------------------------------------------------------
+		/*
+		 * Gestion des ArtisteShows ----------------------------------------------
+		 * */
+	@Override
+	public List<ArtistShow> getAllArtistesShows() throws Exception {
+		// TODO Auto-generated method stub
+		try {
+			return this.artShowRepo.findAll();
+		} catch (Exception e) {
+			// TODO: handle exception
+			throw new Exception(e.getMessage());
+		}
+	}
+	
 	//--------------------------------------------------------------------------------
 		/*
 		 * Gestion des Localites ----------------------------------------------
@@ -339,6 +394,17 @@ public class AdminServiceImpl implements IAdminService{
 			throw new Exception(e.getMessage());
 		}
 	}
+	
+	@Override
+	public List<Locations> findAllLocation() throws Exception {
+		// TODO Auto-generated method stub
+		try {
+			return this.locationRepo.findAll();
+		} catch (Exception e) {
+			// TODO: handle exception
+			throw new Exception(e.getMessage());
+		}
+	}
 
 	@Override
 	public Optional<Locations> findLocationById(int id) throws Exception {
@@ -374,6 +440,238 @@ public class AdminServiceImpl implements IAdminService{
 			throw new Exception(e.getMessage());
 		}
 	}
-	
+	//--------------------------------------------------------------------------------
+	/*
+	 * Gestion des Shows ----------------------------------------------
+	 * */
 
+	@Override
+	public List<Object> findAllShowByPage(int page, String motCle, int size) throws Exception {
+		// TODO Auto-generated method stub
+		List<Object> object = new ArrayList<>();
+		int [] numPage;
+		try {
+			
+			Page<Shows> shows = this.showRepo.findShowByMotCle(motCle,PageRequest.of(page, size,Direction. ASC , "title"));
+			
+			numPage = new  int[shows.getTotalPages()];
+			for(int i = 0; i < shows.getTotalPages(); i++) 
+				numPage[i] = i;
+			
+			object.add(shows);
+			object.add(numPage);
+			
+			return object;
+		} catch (Exception e) {
+			// TODO: handle exception
+			throw new Exception(e.getMessage());
+		}
+	}
+	
+	@Override
+	public List<Shows> findAllShow() throws Exception {
+		// TODO Auto-generated method stub
+		try {
+			return this.showRepo.findAll();
+		} catch (Exception e) {
+			// TODO: handle exception
+			throw new Exception(e.getMessage());
+		}
+	}
+	
+	@Override
+	public Optional<Shows> findShowById(int id) throws Exception {
+		// TODO Auto-generated method stub
+		try {
+			Optional<Shows> s = this.showRepo.findById(id);
+			return s;
+		} catch (Exception e) {
+			// TODO: handle exception
+			throw new Exception(e.getMessage());
+		}
+	}
+	
+	@Override
+	public void saveShow(Shows s, MultipartFile file,Integer[] tabArtistes) throws Exception {
+		// TODO Auto-generated method stub
+		List<ArtistShow> artShow = new ArrayList<>();
+		List<Artists> artistes;
+		List<Integer> artisteId;;
+		try {
+			
+			artisteId = Arrays.asList(tabArtistes);
+			artistes = this.artisteRepo.findAllById(artisteId);
+			
+			s.setPosterUrl(file.getOriginalFilename());
+			Shows show = this.showRepo.save(s);
+			this.gestionFile.saveFile(file, show.getId());
+			
+			artistes.forEach(a -> {
+				artShow.add(new ArtistShow(a, s));
+			});
+			
+			this.artShowRepo.deleteArtitsteShowByShowId(s.getId());
+			this.artShowRepo.saveAll(artShow);
+			
+		} catch (Exception e) {
+			// TODO: handle exception
+			throw new Exception(e.getMessage());
+		}
+	}
+
+	@Override
+	public void deleteShowById(int id) throws Exception {
+		// TODO Auto-generated method stub
+		try {
+			this.showRepo.deleteById(id);
+		} catch (Exception e) {
+			// TODO: handle exception
+			throw new Exception(e.getMessage());
+		}
+	}
+	
+	@Override
+	public File getPhotoForAShow(int id) throws Exception {
+		// TODO Auto-generated method stub
+		return this.gestionFile.getPhotoById(id);
+	}
+	//--------------------------------------------------------------------------------
+	/*
+	 * Gestion des Represetations ----------------------------------------------
+	 * */
+
+	@Override
+	public List<Object> findAllRepresentationByPage(int page,String motCle, int size) throws Exception {
+		// TODO Auto-generated method stub
+		List<Object> object = new ArrayList<>();
+		int [] numPage;
+		try {
+			
+			Page<Representations> representations = 
+					this.representationRepo.findRepresentationByShowTitle(motCle, PageRequest.of(page, size,Direction. ASC , "show.title"));
+			
+			numPage = new  int[representations.getTotalPages()];
+			for(int i = 0; i < representations.getTotalPages(); i++) 
+				numPage[i] = i;
+			
+			object.add(representations);
+			object.add(numPage);
+			
+			return object;
+		} catch (Exception e) {
+			// TODO: handle exception
+			throw new Exception(e.getMessage());
+		}
+	}
+
+	@Override
+	public List<Representations> findAllRepresentation() throws Exception {
+		// TODO Auto-generated method stub
+		try {
+			return this.representationRepo.findAll();
+		} catch (Exception e) {
+			// TODO: handle exception
+			throw new Exception(e.getMessage());
+		}
+	}
+
+	@Override
+	public Optional<Representations> findRepresentationById(int id) throws Exception {
+		// TODO Auto-generated method stub
+		try {
+			Optional<Representations> r = this.representationRepo.findById(id);
+			return r;
+		} catch (Exception e) {
+			// TODO: handle exception
+			throw new Exception(e.getMessage());
+		}
+	}
+
+	@Override
+	public Optional<Representations> saveRepresentation(Representations r) throws Exception {
+		// TODO Auto-generated method stub
+		try {
+			Representations representation = this.representationRepo.save(r);
+			return Optional.ofNullable(representation);
+		} catch (Exception e) {
+			// TODO: handle exception
+			throw new Exception(e.getMessage());
+		}
+	}
+
+	@Override
+	public void deleteRepresentationById(int id) throws Exception {
+		// TODO Auto-generated method stub
+		try {
+			this.representationRepo.deleteById(id);
+		} catch (Exception e) {
+			// TODO: handle exception
+			throw new Exception(e.getMessage());
+		}
+	}
+	//--------------------------------------------------------------------------------
+	/*
+	 * Gestion des Utilisateurs ----------------------------------------------
+	 * */
+
+	@Override
+	public List<Object> findAllUsersByPage(int page, String motCle, int size) throws Exception {
+		// TODO Auto-generated method stub
+		List<Object> object = new ArrayList<>();
+		int [] numPage;
+		try {
+			
+			Page<Users> users = this.userRepo.findUserByMotCle(motCle, PageRequest.of(page, size,Direction. ASC , "login"));
+			
+			numPage = new  int[users.getTotalPages()];
+			for(int i = 0; i < users.getTotalPages(); i++) 
+				numPage[i] = i;
+			
+			object.add(users);
+			object.add(numPage);
+			
+			return object;
+		} catch (Exception e) {
+			// TODO: handle exception
+			throw new Exception(e.getMessage());
+		}
+	}
+
+	@Override
+	public Optional<Users> findUserById(int id) throws Exception {
+		// TODO Auto-generated method stub
+		try {
+			Optional<Users> u = this.userRepo.findById(id);
+			return u;
+		} catch (Exception e) {
+			// TODO: handle exception
+			throw new Exception(e.getMessage());
+		}
+	}
+
+	@Override
+	public Optional<Users> saveUser(Users u) throws Exception {
+		// TODO Auto-generated method stub
+		try {
+			Users user = this.userRepo.save(u);
+			return Optional.ofNullable(user);
+		} catch (Exception e) {
+			// TODO: handle exception
+			throw new Exception(e.getMessage());
+		}
+	}
+
+	@Override
+	public void deleteUserById(int id) throws Exception {
+		// TODO Auto-generated method stub
+		try {
+			this.userRepo.deleteById(id);
+		} catch (Exception e) {
+			// TODO: handle exception
+			throw new Exception(e.getMessage());
+		}
+		
+	}
+	
+	
 }

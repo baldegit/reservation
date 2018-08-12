@@ -12,7 +12,11 @@
 }
 
 .typeColor{
-	background-color: green;
+	background-color: gray;
+}
+
+.artColor{
+	color: navy;
 }
 
 fieldset.scheduler-border {

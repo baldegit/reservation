@@ -24,7 +24,7 @@ public class Locations implements Serializable{
 	private int id;
 	
 	@Column(nullable = false)
-	@Size(max = 3)
+	@Size(min = 2)
 	private String slug;
 	
 	@Column(nullable = false)

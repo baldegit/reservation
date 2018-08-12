@@ -73,7 +73,6 @@ public class ArtisteController {
 		
 		try {
 			opArtiste = this.service.findArtisteById(id);
-			this.types = this.service.findAllTypes();
 			this.checkedObjectArray = this.service.findTypesChecked(id);
 			if(opArtiste.isPresent())
 				artiste = opArtiste.get();

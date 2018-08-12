@@ -5,9 +5,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.*;
+import javax.validation.Valid;
+import javax.validation.constraints.*;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonProperty;
 
 @Entity
 @Table(name = "shows")
@@ -23,9 +23,13 @@ public class Shows implements Serializable{
 	private int id;
 	
 	@Column(nullable = false)
+	@NotEmpty
+	@Size(min = 2)
 	private String slug;
 	
 	@Column(nullable = false)
+	@NotEmpty
+	@Size(min = 5)
 	private String title;
 	
 	@Column(name = "poster_url",nullable = false)
@@ -33,15 +37,22 @@ public class Shows implements Serializable{
 	
 	@ManyToOne
 	@JoinColumn(name = "location_id", nullable = false)
+	@Valid
+	@NotNull
 	private Locations location;
 	
 	@Column(nullable = false)
+	@NotNull
+	@Positive
 	private int bookable;
 	
 	@Column(columnDefinition="TEXT")
+	@NotEmpty
 	private String description;
 	
 	@Column(nullable = false)
+	@NotNull
+	@Positive
 	private float price;
 	
 	@OneToMany(targetEntity = Representations.class,

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html th:replace="~{adminTemplates/adminLayout :: layout(~{::title}, ~{::section})}">
+	<head>
+		<meta charset="UTF-8">
+		<title th:text="#{adminRepresentation.title}">Insert title here</title>
+	</head>
+	<body>
+		<section >
+		<div class="container spacer">
+			<div class="col-md-6 col-sm-6 col-xs-12 spacer col-md-offset-3 col-sm-offset-3">
+				<div class="panel panel-default">
+				  	<div class="panel-heading" th:utext="#{adminRepresentation.panel.heading}">Panel Heading</div>
+				  	<div class="panel-body">
+				  		<form th:action="@{saveOrUpdate}" method="post" th:object="${representation}" modelAttribute="representation" >
+							<fieldset class="scheduler-border">
+								<legend class="scheduler-border" th:text="#{adminRepresentation.fieldSet.legend}" />
+									<div class="form-group">
+										<input type="hidden" th:field="*{id}" class="form-control" />
+									</div>
+									<div class="form-group">
+										<label class="control-label" th:text="#{adminRepresentation.date}"></label>
+										<input type="date" th:field="*{date}" class="form-control" />
+										<span class="text-danger" th:errors="*{date}"></span>
+									</div>
+									
+									<div class="form-group">
+										<label class="control-label" th:text="#{adminRepresentation.select.label}"></label>
+										<select th:field="*{show}" class="form-control" >
+											<option th:value="NULL" th:text="#{adminRepresentation.select.show}"></option>
+											<option th:each="s : ${shows}" th:value="${{s}}" th:text="${s.title}"></option>
+										</select>
+										<span class="text-danger" th:errors="*{show}"></span>
+									</div>
+									<div>
+										<button type="submit" class="btn btn-block" th:text="#{adminRepresentation.save}"></button>
+									</div>
+							</fieldset>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+			
+			
+		</section>
+	</body>
+</html>

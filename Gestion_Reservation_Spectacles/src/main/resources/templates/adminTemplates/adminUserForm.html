@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html th:replace="~{adminTemplates/adminLayout :: layout(~{::title}, ~{::section})}">
+	<head>
+		<meta charset="UTF-8">
+		<title th:text="#{adminUserForm.title}">Insert title here</title>
+	</head>
+	<body>
+		<section >
+		<div class="container spacer">
+			<div class="col-md-6 col-sm-6 col-xs-12 spacer col-md-offset-3 col-sm-offset-3">
+				<div class="panel panel-default">
+				  	<div class="panel-heading" th:utext="#{adminUserForm.panel.heading}">Panel Heading</div>
+				  	<div class="panel-body">
+				  		<form th:action="@{saveOrUpdate}" method="post" th:object="${user}" modelAttribute="user" >
+							<fieldset class="scheduler-border">
+								<legend class="scheduler-border" th:text="#{adminUserForm.fieldSet.legend}" />
+									<div class="form-group">
+										<input type="hidden" th:field="*{id}" class="form-control" />
+									</div>
+									
+									<div class="form-group">
+										<label class="control-label" th:text="#{adminUserForm.select.label}"></label>
+										<select th:field="*{role}" class="form-control" >
+											<option th:value="NULL" th:text="#{adminUserForm.select.role}"></option>
+<!-- 											<option th:each="l : ${localite}" th:value="${{l}}" th:text="${l.locality}"></option> -->
+											<option th:value="*{{role}}" th:text="*{role.role}"></option>
+										</select>
+										<span class="text-danger" th:errors="*{role}"></span>
+									</div>
+									
+									<div>
+										<button type="submit" class="btn btn-block" th:text="#{adminUserForm.save}"></button>
+									</div>
+							</fieldset>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+			
+			
+		</section>
+	</body>
+</html>
