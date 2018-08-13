@@ -36,6 +36,8 @@ public class AdminServiceImpl implements IAdminService{
 	private RepresentationsRepository representationRepo;
 	@Autowired
 	private UsersRepository userRepo;
+	@Autowired
+	private RolesRepository roleRepo;
 	
 	@Autowired
 	private IGestionFiles gestionFile;
@@ -672,6 +674,80 @@ public class AdminServiceImpl implements IAdminService{
 		}
 		
 	}
+	//--------------------------------------------------------------------------------
+	/*
+	 * Gestion des Utilisateurs ----------------------------------------------
+	 * */
+
+	@Override
+	public List<Object> findAllRolesByPage(int page, String motCle, int size) throws Exception {
+		// TODO Auto-generated method stub
+		List<Object> object = new ArrayList<>();
+		int [] numPage;
+		try {
+			
+			Page<Roles> roles = this.roleRepo.findRolesByRole(motCle, PageRequest.of(page, size,Direction. ASC , "role"));
+			
+			numPage = new  int[roles.getTotalPages()];
+			for(int i = 0; i < roles.getTotalPages(); i++) 
+				numPage[i] = i;
+			
+			object.add(roles);
+			object.add(numPage);
+			
+			return object;
+		} catch (Exception e) {
+			// TODO: handle exception
+			throw new Exception(e.getMessage());
+		}
+	}
+
+	@Override
+	public List<Roles> findAllRole() throws Exception {
+		// TODO Auto-generated method stub
+		try {
+			return this.roleRepo.findAll();
+		} catch (Exception e) {
+			// TODO: handle exception
+			throw new Exception(e.getMessage());
+		}
+	}
+
+	@Override
+	public Optional<Roles> findRoleById(int id) throws Exception {
+		// TODO Auto-generated method stub
+		try {
+			Optional<Roles> r = this.roleRepo.findById(id);
+			return r;
+		} catch (Exception e) {
+			// TODO: handle exception
+			throw new Exception(e.getMessage());
+		}
+	}
+
+	@Override
+	public Optional<Roles> saveRole(Roles r) throws Exception {
+		// TODO Auto-generated method stub
+		try {
+			Roles role = this.roleRepo.save(r);
+			return Optional.ofNullable(role);
+		} catch (Exception e) {
+			// TODO: handle exception
+			throw new Exception(e.getMessage());
+		}
+	}
+
+	@Override
+	public void deleteRoleById(int id) throws Exception {
+		// TODO Auto-generated method stub
+		try {
+			this.roleRepo.deleteById(id);
+		} catch (Exception e) {
+			// TODO: handle exception
+			throw new Exception(e.getMessage());
+		}
+	}
+	
 	
 	
 }

@@ -22,8 +22,11 @@
 	    <!-- Custom Fonts -->
 	    <link href="/webjars/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
 	    
-	    <link rel="stylesheet" type="text/css" href="../static/css/myStyle.css" 
+	    <link rel="stylesheet" type="text/css" href="../../static/css/myStyle.css" 
 			th:href="@{/css/myStyle.css}" />
+		
+		
+<!-- 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script> -->
 	    
 		<title th:replace="${title}">Admin</title>
 		
@@ -56,6 +59,7 @@
 		
 		<!--     jQuery -->
 	    <script src="/webjars/jquery/jquery.min.js"></script>
+	    <script src="../../static/js/postrequest.js" th:src="@{/js/postrequest.js}"></script>
 	
 		<!--     Bootstrap Core JavaScript -->
 	    <script src="/webjars/bootstrap/js/bootstrap.min.js"></script>

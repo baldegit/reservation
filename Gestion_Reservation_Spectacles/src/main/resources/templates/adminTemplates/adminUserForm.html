@@ -17,13 +17,12 @@
 									<div class="form-group">
 										<input type="hidden" th:field="*{id}" class="form-control" />
 									</div>
-									
+<!-- 									faire tous le form avec disable -->
 									<div class="form-group">
 										<label class="control-label" th:text="#{adminUserForm.select.label}"></label>
-										<select th:field="*{role}" class="form-control" >
+										<select th:field="*{role.role}" class="form-control" >
 											<option th:value="NULL" th:text="#{adminUserForm.select.role}"></option>
-<!-- 											<option th:each="l : ${localite}" th:value="${{l}}" th:text="${l.locality}"></option> -->
-											<option th:value="*{{role}}" th:text="*{role.role}"></option>
+											<option th:each="r : ${roles}" th:value="${{r.role}}" th:text="${r.role}"></option>
 										</select>
 										<span class="text-danger" th:errors="*{role}"></span>
 									</div>

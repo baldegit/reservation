@@ -76,7 +76,4 @@ public class Localities implements Serializable{
 	public void setLocation(List<Locations> location) {
 		this.location = location;
 	}
-
-	
-	
 }

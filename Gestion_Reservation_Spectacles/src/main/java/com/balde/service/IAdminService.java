@@ -70,4 +70,11 @@ public interface IAdminService {
 	public Optional<Users> saveUser(Users u) throws Exception;
 	public void deleteUserById(int id) throws Exception;
 	
+	// Roles
+	public List<Object> findAllRolesByPage(int page,String motCle,int size) throws Exception;
+	public List<Roles> findAllRole() throws Exception;
+	public Optional<Roles> findRoleById(int id) throws Exception;
+	public Optional<Roles> saveRole(Roles r) throws Exception;
+	public void deleteRoleById(int id) throws Exception;
+	
 }

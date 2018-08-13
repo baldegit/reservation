@@ -20,31 +20,29 @@ import com.balde.entity.*;
 import com.balde.service.IAdminService;
 
 @Controller
-@RequestMapping("/admin/user")
-public class UsersController {
+@RequestMapping("/admin/role")
+public class RoleController {
 	
 	private static final int PAGES_SIZE = 5;
-	
-	private List<Roles> roles;
 	
 	@Autowired
 	private IAdminService service;
 	
-	@GetMapping(value = {"/","user"})
+	@GetMapping(value = {"/","role"})
 	public String goToTypePage(Model model,@RequestParam(name = "page", defaultValue = "0") int page,
-			@RequestParam(name = "motCle", required = false, defaultValue="") String login) throws Exception  {
+			@RequestParam(name = "motCle", required = false, defaultValue="") String role) throws Exception  {
 		
 		int [] numPage;
-		Page<Users> users;
+		Page<Roles> roles;
 		
 		try {
-			List<Object> object = this.service.findAllUsersByPage(page,login, this.PAGES_SIZE);
+			List<Object> object = this.service.findAllRolesByPage(page,role, this.PAGES_SIZE);
 			
-			users = (Page<Users>) object.get(0);
+			roles = (Page<Roles>) object.get(0);
 			numPage = (int []) object.get(1);
 			
-			model.addAttribute("motCle", login);
-			model.addAttribute("users", users);
+			model.addAttribute("motCle", role);
+			model.addAttribute("roles", roles);
 			model.addAttribute("numPage", numPage);
 			model.addAttribute("pageCourante", page);
 			
@@ -54,63 +52,60 @@ public class UsersController {
 			e.printStackTrace();
 		} 
 		
-		return "adminTemplates/adminUser";
+		return "adminTemplates/adminRole";
 	}
 	
 	@GetMapping("/editOrCreate")
-	public String editOrCreateType(Model model, @RequestParam(name="userId", required = false, defaultValue = "-1") int id) throws Exception { 
+	public String editOrCreateType(Model model, @RequestParam(name="roleId", required = false, defaultValue = "-1") int id) throws Exception { 
 		
-		Optional<Users> optUser; 
-		Users user;
+		Optional<Roles> optRoles; 
+		Roles roles;
 		
 		try {
-			optUser = this.service.findUserById(id);
-			this.roles = this.service.findAllRole();
-			if(optUser.isPresent())
-				user = optUser.get();
+			optRoles = this.service.findRoleById(id);
+			if(optRoles.isPresent())
+				roles = optRoles.get();
 			else
-				user = new Users();
+				roles = new Roles();
 			
-			model.addAttribute("user", user);
-			model.addAttribute("roles",this.roles);
+			model.addAttribute("roles", roles);
 			
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
-		return "adminTemplates/adminUserForm";
+	
+		return "adminTemplates/adminRoleForm";
 	}
 	
 	@PostMapping("/saveOrUpdate")
-	public String saveOrUpdateType(Model model,@Valid @ModelAttribute("user")Users user, BindingResult result) throws Exception{
+	public String saveOrUpdateType(Model model,@Valid @ModelAttribute("roles")Roles role, BindingResult result) throws Exception{
 		
 		try {
-			if(result.hasErrors()) {
-				model.addAttribute("roles",this.roles);
-				return "adminTemplates/adminUserForm";
-			}
+			if(result.hasErrors())
+				return "adminTemplates/adminRoleForm";
 			
-			this.service.saveUser(user);
+			this.service.saveRole(role);
 			
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
-		return "redirect:/admin/user/";
+		return "redirect:/admin/role/";
 	}
 	
 	@GetMapping("/delete")
-	public String deleteType(@RequestParam(name="userId") int id) throws Exception{
+	public String deleteType(@RequestParam(name="roleId") int id) throws Exception{
 		
 		try {
-			this.service.deleteUserById(id);
+			this.service.deleteRoleById(id);
 		} catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();
 		}
 		
-		return "redirect:/admin/user/";
+		return "redirect:/admin/role/";
 	}
 }

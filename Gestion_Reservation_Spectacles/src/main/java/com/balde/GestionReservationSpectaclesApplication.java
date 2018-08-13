@@ -36,6 +36,7 @@ public class GestionReservationSpectaclesApplication implements CommandLineRunne
 	@Autowired
 	UsersRepository user;
 
+
 	public static void main(String[] args) {
 		SpringApplication.run(GestionReservationSpectaclesApplication.class, args);
 	}
@@ -79,9 +80,9 @@ public class GestionReservationSpectaclesApplication implements CommandLineRunne
 //		Localities l02 = new Localities("1030", "Bruxelles saint gille");
 //		this.localities.save(l02);
 //		
-//		Locations l11 = new Locations("zaventem", "ZA", "136 rue du marigo", l01, "", "056573");
+//		Locations l11 = new Locations("ZAV","zaventem", "136 rue du marigo", l01, "saint gille", "056573");
 //		this.locations.save(l11);
-//		Locations l12 = new Locations("kouroula", "RD", "43 rue de touge", l02, "", "056573");
+//		Locations l12 = new Locations("RDC","kouroula", "43 rue de touge", l02, "Anderlecth", "056573");
 //		this.locations.save(l12);
 //
 //		Shows s0 = new Shows("wakanda", "Wakanda Representation", "", l11, 18, "ceci est une description",20);
@@ -117,6 +118,8 @@ public class GestionReservationSpectaclesApplication implements CommandLineRunne
 //		
 //		Users u0 = new Users("BALDE", "balde", true, r11, "Allaji", "Burayma", "mazokou18@yahoo.fr", "fr");
 //		this.user.save(u0);
+//		Users u1 = new Users("DIALLO", "diallo", true, r12, "Maaliki", "Burayma", "mazokou18@yahoo.fr", "fr");
+//		this.user.save(u1);
 //			
 //		RepresentationUser ru0 = new RepresentationUser(r0, u0, 0);
 //		this.representationUser.save(ru0);

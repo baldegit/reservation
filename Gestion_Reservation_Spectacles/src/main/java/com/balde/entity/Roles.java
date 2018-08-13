@@ -6,6 +6,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
@@ -23,6 +25,8 @@ public class Roles implements Serializable{
 	private int id;
 	
 	@Column(nullable = false, unique = true)
+	@NotEmpty
+	@Size(min = 4)
 	private String role;
 	
 	@OneToMany(targetEntity = Users.class,
