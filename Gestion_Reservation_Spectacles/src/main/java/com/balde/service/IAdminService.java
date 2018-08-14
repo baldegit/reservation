@@ -56,6 +56,7 @@ public interface IAdminService {
 	public void saveShow(Shows s, MultipartFile file,Integer[] artistes ) throws Exception;
 	public void deleteShowById(int id) throws Exception;
 	public File getPhotoForAShow(int id) throws Exception;
+	public void updateShowFromApi(int nbRecords) throws Exception;
 	
 	// Representation
 	public List<Object> findAllRepresentationByPage(int page,String motCle,int size) throws Exception;

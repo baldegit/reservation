@@ -151,4 +151,16 @@ public class ShowController {
 		}
 	}
 	
+	@GetMapping("/addShowFromApi")
+	public String addShowFromApi() {
+		try {	
+			this.service.updateShowFromApi(5);
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
+		
+		return "redirect:/admin/show/";
+	}
+	
 }

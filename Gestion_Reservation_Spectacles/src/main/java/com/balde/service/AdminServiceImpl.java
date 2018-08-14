@@ -8,8 +8,10 @@ import org.springframework.data.domain.*;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.client.RestTemplate;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.balde.api.beans.ShowFromApi;
 import com.balde.beans.CheckedObject;
 import com.balde.entity.*;
 import com.balde.repository.*;
@@ -536,6 +538,30 @@ public class AdminServiceImpl implements IAdminService{
 	public File getPhotoForAShow(int id) throws Exception {
 		// TODO Auto-generated method stub
 		return this.gestionFile.getPhotoById(id);
+	}
+	
+	@Override
+	public void updateShowFromApi(int nbRecords) throws Exception {
+		// TODO Auto-generated method stub
+		try {
+			String url = "https://opendata.paris.fr/api/records/1.0/search//?dataset=evenements-a-paris&q=theatre&rows="+nbRecords;
+			RestTemplate restTemplate = new RestTemplate();
+			ShowFromApi sfapi = restTemplate.getForObject(url, ShowFromApi.class);
+		
+			
+			sfapi.getRecords().forEach(record -> {
+				Localities localite = this.localiteRepo.save(new Localities("75000", record.getFields().getCity()));
+				Locations location = this.locationRepo.save(new Locations(record.getFields().getPlacename(),
+						record.getFields().getPlacename(), record.getFields().getAddress(), localite, "", "+33 1 23 45 67 89"));
+				
+				Shows show = this.showRepo.save(new Shows(record.getFields().getTitle(), record.getFields().getTitle(),
+					record.getFields().getImage(), location, 26, record.getFields().getFree_text(), 15));
+			});
+			
+		} catch (Exception e) {
+			// TODO: handle exception
+			throw e;
+		}
 	}
 	//--------------------------------------------------------------------------------
 	/*
