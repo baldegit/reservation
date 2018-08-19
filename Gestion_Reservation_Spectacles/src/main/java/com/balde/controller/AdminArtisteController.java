@@ -24,7 +24,7 @@ import com.balde.service.IAdminService;
 
 @Controller
 @RequestMapping("/admin/artiste")
-public class ArtisteController {
+public class AdminArtisteController {
 	
 	private static final int PAGES_SIZE = 5;
 	

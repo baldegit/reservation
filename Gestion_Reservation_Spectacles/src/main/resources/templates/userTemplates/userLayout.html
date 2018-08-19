@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html th:fragment="layout01(title, content)" xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+	  	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	  	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+	  	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+		<link rel="stylesheet" href="../../static/css/myStyle.css" th:href="@{/css/myStyle.css}">
+		
+		<title th:replace="${title}">Admin</title>
+
+	</head>
+
+	<body>
+		
+		<!-- 		Header/NavBar -->
+		<div th:replace="fragments/user/fragment-header :: header"></div>
+		
+		<!-- 		Carousel -->
+		<div th:replace="fragments/user/fragment-carousel :: carousel"></div>
+		
+		<!-- Content -->
+	    <div th:replace="${content}"> </div>
+ 		<!-- /#Content -->
+		
+		
+		<!-- Footer -->
+	    <div th:replace="fragments/user/fragment-footer :: footer"></div>
+    	<!-- #Footer -->
+		 
+	</body>
+</html>

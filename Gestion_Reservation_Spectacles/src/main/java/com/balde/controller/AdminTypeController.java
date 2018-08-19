@@ -20,7 +20,7 @@ import com.balde.service.IAdminService;
 
 @Controller
 @RequestMapping("/admin/type")
-public class TypeController {
+public class AdminTypeController {
 	
 	private static final int PAGES_SIZE = 5;
 	

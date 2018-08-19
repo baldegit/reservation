@@ -20,31 +20,31 @@ import com.balde.entity.*;
 import com.balde.service.IAdminService;
 
 @Controller
-@RequestMapping("/admin/location")
-public class LocationController {
-
+@RequestMapping("/admin/user")
+public class AdminUsersController {
+	
 	private static final int PAGES_SIZE = 5;
 	
-	private List<Localities> localite;
+	private List<Roles> roles;
 	
 	@Autowired
 	private IAdminService service;
 	
-	@GetMapping(value = {"/","location"})
+	@GetMapping(value = {"/","user"})
 	public String goToTypePage(Model model,@RequestParam(name = "page", defaultValue = "0") int page,
-			@RequestParam(name = "motCle", required = false, defaultValue="") String adresse) throws Exception  {
+			@RequestParam(name = "motCle", required = false, defaultValue="") String login) throws Exception  {
 		
 		int [] numPage;
-		Page<Locations> locations;
+		Page<Users> users;
 		
 		try {
-			List<Object> object = this.service.findAllLocationByPage(page,adresse, this.PAGES_SIZE);
+			List<Object> object = this.service.findAllUsersByPage(page,login, this.PAGES_SIZE);
 			
-			locations = (Page<Locations>) object.get(0);
+			users = (Page<Users>) object.get(0);
 			numPage = (int []) object.get(1);
 			
-			model.addAttribute("motCle", adresse);
-			model.addAttribute("locations", locations);
+			model.addAttribute("motCle", login);
+			model.addAttribute("users", users);
 			model.addAttribute("numPage", numPage);
 			model.addAttribute("pageCourante", page);
 			
@@ -54,65 +54,63 @@ public class LocationController {
 			e.printStackTrace();
 		} 
 		
-		return "adminTemplates/adminLocation";
+		return "adminTemplates/adminUser";
 	}
 	
 	@GetMapping("/editOrCreate")
-	public String editOrCreateType(Model model, @RequestParam(name="locationId", required = false, defaultValue = "-1") int id) throws Exception { 
+	public String editOrCreateType(Model model, @RequestParam(name="userId", required = false, defaultValue = "-1") int id) throws Exception { 
 		
-		Optional<Locations> optLocation; 
-		Locations location;
-		
+		Optional<Users> optUser; 
+		Users user;
 		
 		try {
-			optLocation = this.service.findLocationById(id);
-			localite = this.service.findAllLocalite();
-			if(optLocation.isPresent())
-				location = optLocation.get();
+			optUser = this.service.findUserById(id);
+			this.roles = this.service.findAllRole();
+			if(optUser.isPresent())
+				user = optUser.get();
 			else
-				location = new Locations();
+				user = new Users();
 			
-			model.addAttribute("location", location);
-			model.addAttribute("localite", localite);
+			model.addAttribute("user", user);
+			model.addAttribute("roles",this.roles);
 			
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
-	
-		return "adminTemplates/adminLocationForm";
+		return "adminTemplates/adminUserForm";
 	}
 	
 	@PostMapping("/saveOrUpdate")
-	public String saveOrUpdateType(Model model,@Valid @ModelAttribute("location") Locations location, BindingResult result) throws Exception{
+	public String saveOrUpdateType(Model model,@Valid @ModelAttribute("user")Users user, BindingResult result) throws Exception{
 		
 		try {
 			if(result.hasErrors()) {
-				model.addAttribute("localite", localite);
-				return "adminTemplates/adminLocationForm";
+				model.addAttribute("roles",this.roles);
+				return "adminTemplates/adminUserForm";
 			}
 			
-			this.service.saveLocation(location);
+			this.service.saveUser(user);
 			
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
-		return "redirect:/admin/location/";
+		return "redirect:/admin/user/";
 	}
 	
 	@GetMapping("/delete")
-	public String deleteType(@RequestParam(name="locationId") int id) throws Exception{
+	public String deleteType(@RequestParam(name="userId") int id) throws Exception{
 		
 		try {
-			this.service.deleteLocationById(id);
+			this.service.deleteUserById(id);
 		} catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();
 		}
 		
-		return "redirect:/admin/location/";
+		return "redirect:/admin/user/";
 	}
 }

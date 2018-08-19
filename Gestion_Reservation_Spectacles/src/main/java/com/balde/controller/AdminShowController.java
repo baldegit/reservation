@@ -29,7 +29,7 @@ import com.balde.service.IAdminService;
 
 @Controller
 @RequestMapping("/admin/show")
-public class ShowController {
+public class AdminShowController {
 	
 	private static final int PAGES_SIZE = 5;
 	List<Locations> locations;

@@ -23,7 +23,7 @@ import com.balde.service.IAdminService;
 
 @Controller
 @RequestMapping("/admin/representation")
-public class RepresentationController {
+public class AdminRepresentationController {
 
 	private static final int PAGES_SIZE = 5;
 	

@@ -20,29 +20,29 @@ import com.balde.entity.*;
 import com.balde.service.IAdminService;
 
 @Controller
-@RequestMapping("/admin/role")
-public class RoleController {
+@RequestMapping("/admin/localite")
+public class AdminLocaliteController {
 	
 	private static final int PAGES_SIZE = 5;
 	
 	@Autowired
 	private IAdminService service;
 	
-	@GetMapping(value = {"/","role"})
+	@GetMapping(value = {"/","localite"})
 	public String goToTypePage(Model model,@RequestParam(name = "page", defaultValue = "0") int page,
-			@RequestParam(name = "motCle", required = false, defaultValue="") String role) throws Exception  {
+			@RequestParam(name = "motCle", required = false, defaultValue="") String codePostal) throws Exception  {
 		
 		int [] numPage;
-		Page<Roles> roles;
+		Page<Localities> localites;
 		
 		try {
-			List<Object> object = this.service.findAllRolesByPage(page,role, this.PAGES_SIZE);
+			List<Object> object = this.service.findAllLocaliteByPage(page,codePostal, this.PAGES_SIZE);
 			
-			roles = (Page<Roles>) object.get(0);
+			localites = (Page<Localities>) object.get(0);
 			numPage = (int []) object.get(1);
 			
-			model.addAttribute("motCle", role);
-			model.addAttribute("roles", roles);
+			model.addAttribute("motCle", codePostal);
+			model.addAttribute("localites", localites);
 			model.addAttribute("numPage", numPage);
 			model.addAttribute("pageCourante", page);
 			
@@ -52,23 +52,23 @@ public class RoleController {
 			e.printStackTrace();
 		} 
 		
-		return "adminTemplates/adminRole";
+		return "adminTemplates/adminLocalite";
 	}
 	
 	@GetMapping("/editOrCreate")
-	public String editOrCreateType(Model model, @RequestParam(name="roleId", required = false, defaultValue = "-1") int id) throws Exception { 
+	public String editOrCreateType(Model model, @RequestParam(name="localiteId", required = false, defaultValue = "-1") int id) throws Exception { 
 		
-		Optional<Roles> optRoles; 
-		Roles roles;
+		Optional<Localities> optLocalite; 
+		Localities localite;
 		
 		try {
-			optRoles = this.service.findRoleById(id);
-			if(optRoles.isPresent())
-				roles = optRoles.get();
+			optLocalite = this.service.findLocaliteById(id);
+			if(optLocalite.isPresent())
+				localite = optLocalite.get();
 			else
-				roles = new Roles();
+				localite = new Localities();
 			
-			model.addAttribute("roles", roles);
+			model.addAttribute("localite", localite);
 			
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
@@ -76,36 +76,36 @@ public class RoleController {
 		}
 		
 	
-		return "adminTemplates/adminRoleForm";
+		return "adminTemplates/adminLocaliteForm";
 	}
 	
 	@PostMapping("/saveOrUpdate")
-	public String saveOrUpdateType(Model model,@Valid @ModelAttribute("roles")Roles role, BindingResult result) throws Exception{
+	public String saveOrUpdateType(Model model,@Valid @ModelAttribute("localite")Localities localite, BindingResult result) throws Exception{
 		
 		try {
 			if(result.hasErrors())
-				return "adminTemplates/adminRoleForm";
+				return "adminTemplates/adminLocaliteForm";
 			
-			this.service.saveRole(role);
+			this.service.saveLocalite(localite);
 			
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
-		return "redirect:/admin/role/";
+		return "redirect:/admin/localite/";
 	}
 	
 	@GetMapping("/delete")
-	public String deleteType(@RequestParam(name="roleId") int id) throws Exception{
+	public String deleteType(@RequestParam(name="localiteId") int id) throws Exception{
 		
 		try {
-			this.service.deleteRoleById(id);
+			this.service.deleteLocaliteById(id);
 		} catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();
 		}
 		
-		return "redirect:/admin/role/";
+		return "redirect:/admin/localite/";
 	}
 }

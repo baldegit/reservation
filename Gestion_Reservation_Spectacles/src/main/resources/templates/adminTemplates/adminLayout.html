@@ -14,19 +14,13 @@
 	    <link href="/webjars/metisMenu/metisMenu.min.css" rel="stylesheet">
 	
 	    <!-- Custom CSS -->
-	    <link href="../static/css/sb-admin-2.min.css" th:href="@{/css/sb-admin-2.min.css}" rel="stylesheet">
+	    <link href="../../static/css/sb-admin-2.css" th:href="@{/css/sb-admin-2.css}" rel="stylesheet">
 	
 	    <!-- Morris Charts CSS -->
 	    <link href="/webjars/morrisjs/morris.css" rel="stylesheet">
 	
 	    <!-- Custom Fonts -->
 	    <link href="/webjars/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-	    
-	    <link rel="stylesheet" type="text/css" href="../../static/css/myStyle.css" 
-			th:href="@{/css/myStyle.css}" />
-		
-		
-<!-- 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script> -->
 	    
 		<title th:replace="${title}">Admin</title>
 		
@@ -58,8 +52,7 @@
 	    <!-- /#wrapper -->
 		
 		<!--     jQuery -->
-	    <script src="/webjars/jquery/jquery.min.js"></script>
-	    <script src="../../static/js/postrequest.js" th:src="@{/js/postrequest.js}"></script>
+	    <script src="/webjars/jquery/jquery.js"></script>
 	
 		<!--     Bootstrap Core JavaScript -->
 	    <script src="/webjars/bootstrap/js/bootstrap.min.js"></script>
@@ -68,10 +61,10 @@
 	    <script src="/webjars/metisMenu/metisMenu.min.js"></script>
 	
 		<!--     Morris Charts JavaScript -->
-		<script src="/webjars/raphaeljs/raphael.min.js"></script>
+<!-- 		<script src="/webjars/raphaeljs/raphael.js"></script> -->
 	    <script src="/webjars/morrisjs/morris.min.js"></script>
-	    <script src="../static/data/morris-data.js" th:src="@{/data/morris-data.js}"></script>
+	    <script src="../../static/data/morris-data.js" th:src="@{/data/morris-data.js}"></script>
 		<!--     Custom Theme JavaScript -->
-	    <script src="../static/js/sb-admin-2.js" th:src="@{/js/sb-admin-2.js}"></script>
+	    <script src="../../static/js/sb-admin-2.js" th:src="@{/js/sb-admin-2.js}"></script>
 	</body>
 </html>
