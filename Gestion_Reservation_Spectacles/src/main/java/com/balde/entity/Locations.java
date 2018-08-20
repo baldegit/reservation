@@ -149,4 +149,10 @@ public class Locations implements Serializable{
 		this.representation = representation;
 	}
 	
+	@Override
+	public String toString() {
+		// TODO Auto-generated method stub
+		return this.address+" "+this.locality.getLocality();
+	}
+	
 }

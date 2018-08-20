@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html th:replace="~{userTemplates/userLayout :: layout01(~{::title}, ~{::section})}">
+	<head>
+		<meta charset="UTF-8">
+		<title th:text="#{catalogueDatail.title}">Insert title here</title>
+	</head>
+	<body>
+		
+		<section>
+			<div class="container">
+				<div class="row">
+					<div class="col-md-8">
+	
+						<!-- Blog Post -->
+				        <div class="card mb-4">
+	<!-- 			        	<img class="card-img-top" src="http://placehold.it/750x300" alt="Card image cap"> -->
+				        	<img class="card-img-top" th:src="@{getPhoto(idShow=${representation.show.id})}" height="345">
+				        	
+				            <div class="card-body">
+				            	<h2 class="card-title" th:text="${representation.show.title}">Post Title</h2>
+				            	<h4 th:text="${representation.show.location.designation}"> </h4><br>
+				              	<p class="card-text"  th:text="${representation.show.description}" ></p>
+				              	<a th:href="@{catalogueReservation(idRep=${representation.id})}" class="btn btn-danger btn-block"	
+					              								th:text="#{catalogueHome.reservation}" ></a>
+				            </div>
+				            
+				            <div class="card-footer text-muted">
+				    
+				            </div>
+				     	</div>
+					</div>
+					<!-- Sidebar Widgets Column -->
+					<div class="col-md-4">
+						
+						
+						 
+					<!-- Categories Widget -->
+					<div class="card mb-4">
+	            		<h5 class="card-header" th:text="#{catalogueDatail.card.header}">Categories</h5>
+	            		<div class="card-body">
+	            			<ul class="list-group">
+	            			
+						    	<li class="list-group-item">
+						    		<span th:text="${representation.show.location.designation}"></span>
+						    		<span></span>
+						    	</li>
+						    	<li class="list-group-item">
+						    		<span th:text="|${representation.show.location}|"></span>
+						    		<span></span>
+						    	</li>
+						    	<li class="list-group-item">
+						    		<span th:text="#{catalogueDatail.codePostal}"></span>
+						    		<span class="badge badge-info" th:text="${representation.show.location.locality.postalCode}"></span>
+						    	</li>
+						    	<li class="list-group-item">
+						    		<span th:text="#{catalogueDatail.palce}"></span>
+						    		<span class="badge badge-info" th:text="${representation.show.bookable}"></span>
+						    	</li>
+						    	<li class="list-group-item">
+						    		<span th:text="#{catalogueDatail.prix}"></span>
+						    		<span class="badge badge-info" th:text="${representation.show.price}"></span>
+						    	</li>
+						    	
+						  	</ul>
+
+							<div class="container spacer">
+								<a th:href="@{catalogueReservation(idRep=${representation.id})}" class="btn btn-danger btn-block"	
+					              								th:text="#{catalogueHome.reservation}" ></a>
+							</div>
+	            		</div>
+					</div>
+						
+					</div>
+				</div>
+			</div>
+		</section>
+	</body>
+</html>
