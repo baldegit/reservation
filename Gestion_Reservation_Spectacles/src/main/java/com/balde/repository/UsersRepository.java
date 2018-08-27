@@ -15,4 +15,9 @@ public interface UsersRepository extends JpaRepository<Users, Integer>{
 	
 	@Query("select u from Users u where u.login like %:x%")
 	public Page<Users> findUserByMotCle(@Param("x") String mc, Pageable pageable);
+	
+	//public Users findUserByEmail(String email);
+	
+	
+	public Users findByEmail(String email);
 }

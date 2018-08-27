@@ -45,8 +45,8 @@ public class AdminServiceImpl implements IAdminService{
 	@Autowired
 	private IGestionFiles gestionFile;
 	
-//	@Autowired
-//	private BCryptPasswordEncoder bCryptPasswordEncoder;
+	@Autowired
+	private BCryptPasswordEncoder bCryptPasswordEncoder;
 
 	public AdminServiceImpl() {
 		super();
@@ -700,11 +700,11 @@ public class AdminServiceImpl implements IAdminService{
 		// TODO Auto-generated method stub
 		try {
 			
-			//u.setPassword(bCryptPasswordEncoder.encode(u.getPassword()));
+			u.setPassword(bCryptPasswordEncoder.encode(u.getPassword().toString()));
 			
 			Roles userRole = this.roleRepo.findRolesByRole("ADMIN");
 			//Role userRole = this.roleRepo.findRolesByRole("USER");
-			u.setActive(true);
+			u.setActive(1);
 			u.setRole(userRole);
 			Users user = this.userRepo.save(u);
 			return Optional.ofNullable(user);

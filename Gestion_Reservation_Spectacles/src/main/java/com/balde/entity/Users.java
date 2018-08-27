@@ -27,9 +27,11 @@ public class Users implements Serializable{
 	@Size(min = 4)
 	private String password;
 	
+	@Transient
 	private String confirmPassword;
 	
-	private boolean active;
+	@NotNull
+	private int active;
 	
 	@ManyToOne
 	@JoinColumn(name = "role_id", nullable = false)
@@ -43,7 +45,7 @@ public class Users implements Serializable{
 	@NotEmpty
 	private String lastName;
 	
-	@Column(nullable = false)
+	@Column(nullable = false, unique = true)
 	@Email
 //	@Pattern(regexp = "[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\."
 //		    +"[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*"
@@ -57,7 +59,7 @@ public class Users implements Serializable{
 		// TODO Auto-generated constructor stub
 	}
 
-	public Users(String login, String password, boolean active, Roles role, String firstName, String lastName,
+	public Users(String login, String password, int active, Roles role, String firstName, String lastName,
 			String email, String langue) {
 		super();
 		this.login = login;
@@ -96,11 +98,11 @@ public class Users implements Serializable{
 		this.password = password;
 	}
 
-	public boolean isActive() {
+	public int getActive() {
 		return active;
 	}
 
-	public void setActive(boolean active) {
+	public void setActive(int active) {
 		this.active = active;
 	}
 

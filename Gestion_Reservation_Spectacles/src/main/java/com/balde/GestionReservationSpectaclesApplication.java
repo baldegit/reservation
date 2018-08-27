@@ -120,10 +120,9 @@ public class GestionReservationSpectaclesApplication implements CommandLineRunne
 //		Roles r12 = new Roles("USER");
 //		this.role.save(r12);
 //		
-//		Users u0 = new Users("BALDE", "balde", true, r11, "Allaji", "Burayma", "mazokou18@yahoo.fr", "fr");
+//		Users u0 = new Users("BALDE", "balde", 1, r11, "Allaji", "Burayma", "mazokou18@yahoo.fr", "fr");
 //		this.user.save(u0);
-//		Users u1 = new Users("DIALLO", "diallo", true, r12, "Maaliki", "Burayma", "mazokou18@yahoo.fr", "fr");
-//		this.user.save(u1);
+//	
 //			
 //		RepresentationUser ru0 = new RepresentationUser(r0, u0, 0);
 //		this.representationUser.save(ru0);

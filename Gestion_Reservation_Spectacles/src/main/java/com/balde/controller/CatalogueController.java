@@ -146,7 +146,7 @@ public class CatalogueController {
 	}
 	
 	@PostMapping("/saveOrUpdateUser")
-	public String saveUser(Model model,@Valid @ModelAttribute("user") Users u, BindingResult result) {
+	public String saveUser(Model model,@Valid @ModelAttribute("user") Users u, BindingResult result) throws Exception{
 		
 		try {
 			System.out.println("p "+u.getPassword()+" pc "+u.getConfirmPassword()+" != "+u.getPassword() != u.getConfirmPassword());
@@ -163,7 +163,7 @@ public class CatalogueController {
 		} catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();
-			return null;
+			throw e;
 		}
 		
 		//userProfil
