@@ -1,5 +1,6 @@
 package com.balde;
 
+import java.util.Calendar;
 import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -106,9 +107,12 @@ public class GestionReservationSpectaclesApplication implements CommandLineRunne
 //		this.artistShow.saveAndFlush(ats3);
 //		
 //		//creation de representation, user et role
-//		Representations r0 = new Representations(s0, l11, new Date());
+//		Calendar calendar = Calendar.getInstance();
+//		calendar.add(Calendar.DAY_OF_YEAR, 2);
+//		Date d = calendar.getTime();
+//		Representations r0 = new Representations(s0, l11, d);
 //		this.representation.save(r0);
-//		Representations r1 = new Representations(s1, l11, new Date());
+//		Representations r1 = new Representations(s1, l11, d);
 //		this.representation.save(r1);
 //		
 //		Roles r11 = new Roles("ADMIN");

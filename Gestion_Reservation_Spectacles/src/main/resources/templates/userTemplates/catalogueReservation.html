@@ -19,44 +19,59 @@
 				     	</div>
 					</div>
 					<!-- Sidebar Widgets Column -->
-					<div class="col-md-4">
-						
-						
+					<div class="col-md-4">	
 						 
-					<!-- Categories Widget -->
-					<div class="card mb-4">
-	            		<div class="card-body">
-	            			<ul class="list-group">
-	            			
-						    	<li class="list-group-item">
-						    		<span th:text="${representation.show.location.designation}"></span>
-						    		<span></span>
-						    	</li>
-						    	<li class="list-group-item">
-						    		<span th:text="|${representation.show.location}|"></span>
-						    		<span></span>
-						    	</li>
-						    	<li class="list-group-item">
-						    		<span th:text="#{catalogueDatail.codePostal}"></span>
-						    		<span class="badge badge-info" th:text="${representation.show.location.locality.postalCode}"></span>
-						    	</li>
-						    	<li class="list-group-item">
-						    		<span th:text="#{catalogueDatail.palce}"></span>
-						    		<span class="badge badge-info" th:text="${representation.show.bookable}"></span>
-						    	</li>
-						    	<li class="list-group-item">
-						    		<span th:text="#{catalogueDatail.prix}"></span>
-						    		<span class="badge badge-info" th:text="${representation.show.price}"></span>
-						    	</li>
-						    	
-						  	</ul>
+						<!-- Categories Widget -->
+						<div class="card mb-4">
+		            		<div class="card-body">
+		            			<ul class="list-group">
+		            			
+							    	<li class="list-group-item">
+							    		<span th:text="${representation.show.location.designation}"></span>
+							    		<span></span>
+							    	</li>
+							    	<li class="list-group-item">
+							    		<span th:text="|${representation.show.location}|"></span>
+							    		<span></span>
+							    	</li>
+							    	<li class="list-group-item">
+							    		<span th:text="#{catalogueDatail.codePostal}"></span>
+							    		<span class="badge badge-info" th:text="${representation.show.location.locality.postalCode}"></span>
+							    	</li>
+							    	<li class="list-group-item">
+							    		<span th:text="#{catalogueDatail.palce}"></span>
+							    		<span class="badge badge-info" th:text="${representation.show.bookable}"></span>
+							    	</li>
+							    	<li class="list-group-item">
+							    		<span th:text="#{catalogueDatail.prix}"></span>
+							    		<span class="badge badge-info" th:text="${representation.show.price}"></span>
+							    	</li>
+							    	
+							  	</ul>
+	
+<!-- 								<div class="container spacer"> -->
+<!-- 									<a th:href="@{catalogueReservation}" class="btn btn-primary btn-block"	 -->
+<!-- 						              								th:text="#{catalogueHome.reservation}" ></a> -->
+<!-- 								</div> -->
 
-							<div class="container spacer">
-								<a th:href="@{catalogueReservation}" class="btn btn-primary btn-block"	
-					              								th:text="#{catalogueHome.reservation}" ></a>
-							</div>
-	            		</div>
-					</div>
+								<div class="container spacer">
+									<form th:action="@{stripePayments}" method="post">
+										<script
+											src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+										    data-key="pk_test_g6do5S237ekq10r65BnxO6S0"
+										    th:data-amount="${representation.show.price * 100}"
+										    data-name="Stripe.com"
+										    data-description="Example charge"
+										    data-image="https://stripe.com/img/documentation/checkout/marketplace.png"
+										    data-locale="auto"
+										    data-zip-code="true"
+										>
+										</script>
+										<input type="hidden" name="id" th:value="${representation.show.id}" />
+									</form>
+								</div>
+		            		</div>
+						</div>
 						
 					</div>
 				</div>

@@ -91,6 +91,7 @@ public class AdminLocationController {
 			if(result.hasErrors()) {
 				model.addAttribute("localite", localite);
 				return "adminTemplates/adminLocationForm";
+				
 			}
 			
 			this.service.saveLocation(location);

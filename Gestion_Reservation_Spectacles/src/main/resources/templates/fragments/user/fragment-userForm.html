@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>Insert title here</title>
+	</head>
+	<body>
+		<div th:fragment="userForm">
+			<div class="col-md-6 offset-md-3">
+                    <span class="anchor" id="formRegister"></span>
+                    <hr class="mb-5">
+
+                    <!-- form card register -->
+                    <div class="card card-outline-secondary">
+                        <div class="card-header">
+                            <h3 class="mb-0">Sign Up</h3>
+                        </div>
+                        <div class="card-body">
+                            <form class="form" role="form" autocomplete="off" method="post" 
+                            		th:action="@{/saveOrUpdateUser}" th:object="${user}" modelAttribute="user">
+                                <div class="form-group">
+                                    <input type="hidden" class="form-control" id="inputName" th:field="*{id}">
+                                </div>
+                                <div class="form-group">
+                                    <label for="firstName" th:text="#{user.form.nom}">Name</label>
+                                    <input type="text" class="form-control"  th:field="*{firstName}">
+                                    <span class="text-danger" th:errors="*{firstName}"></span>
+                                </div>
+                                 <div class="form-group">
+                                    <label for="lastName" th:text="#{user.form.prenom}">Prenom</label>
+                                    <input type="text" class="form-control"  th:field="*{lastName}">
+                                    <span class="text-danger" th:errors="*{lastName}"></span>
+                                </div>
+                                 <div class="form-group">
+                                    <label for="login" th:text="#{user.form.login}">Login</label>
+                                    <input type="text" class="form-control"   th:field="*{login}">
+                                    <span class="text-danger" th:errors="*{login}"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label for="email" th:text="#{user.form.email}">Email</label>
+                                    <input type="email" class="form-control"  required="true" th:field="*{email}">
+                                    <span class="text-danger" th:errors="*{email}"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label for="password" th:text="#{user.form.password}">Password</label>
+                                    <input type="password" class="form-control" required="false"  th:field="*{password}">
+                                    <span class="text-danger" th:errors="*{password}"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label for="confirmPassword" th:text="#{user.form.password1}">Verify</label>
+                                    <input type="password" class="form-control" required="false" th:field="*{confirmPassword}">
+                                    <span class="text-danger" th:errors="*{confirmPassword}"></span>
+                                </div>
+                                <div class="form-group">
+                                    <button type="submit" class="btn btn-success btn-lg float-right" th:text="#{user.form.register}">Register</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <!-- /form card register -->
+                    
+                </div>
+		</div>
+	</body>
+</html>

@@ -29,7 +29,9 @@
 				            <div class="card-footer">
 				              <a th:href="@{catalogueDetail(idRep=${rep.id})}" class="btn btn-info btn-block" 
 				              								th:text="#{catalogueHome.detail}" >c</a>
-				              <a th:href="@{catalogueReservation(idRep=${rep.id})}" class="btn btn-danger btn-block"	
+				              <a th:href="@{catalogueReservation(idRep=${rep.id})}" 
+				                 class="btn btn-danger btn-block"
+				              	 th:classappend="${rep.show.price = 0} ? disabled : _"	
 				              								th:text="#{catalogueHome.reservation}" ></a>
 				            </div>
 			          	</div>

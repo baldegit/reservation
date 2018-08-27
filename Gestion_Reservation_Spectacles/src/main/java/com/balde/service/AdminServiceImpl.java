@@ -6,6 +6,7 @@ import java.util.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.*;
 import org.springframework.data.domain.Sort.Direction;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.client.RestTemplate;
@@ -43,6 +44,9 @@ public class AdminServiceImpl implements IAdminService{
 	
 	@Autowired
 	private IGestionFiles gestionFile;
+	
+//	@Autowired
+//	private BCryptPasswordEncoder bCryptPasswordEncoder;
 
 	public AdminServiceImpl() {
 		super();
@@ -563,6 +567,20 @@ public class AdminServiceImpl implements IAdminService{
 			throw e;
 		}
 	}
+	
+	@Override
+	public float updatePlace(int idShow) throws Exception {
+		// TODO Auto-generated method stub
+		try {
+			Shows s = this.showRepo.getOne(idShow);
+			s.setBookable(s.getBookable() -1);
+			return s.getBookable();
+		} catch (Exception e) {
+			// TODO: handle exception
+			throw e;
+		}
+
+	}
 	//--------------------------------------------------------------------------------
 	/*
 	 * Gestion des Represetations ----------------------------------------------
@@ -681,6 +699,13 @@ public class AdminServiceImpl implements IAdminService{
 	public Optional<Users> saveUser(Users u) throws Exception {
 		// TODO Auto-generated method stub
 		try {
+			
+			//u.setPassword(bCryptPasswordEncoder.encode(u.getPassword()));
+			
+			Roles userRole = this.roleRepo.findRolesByRole("ADMIN");
+			//Role userRole = this.roleRepo.findRolesByRole("USER");
+			u.setActive(true);
+			u.setRole(userRole);
 			Users user = this.userRepo.save(u);
 			return Optional.ofNullable(user);
 		} catch (Exception e) {

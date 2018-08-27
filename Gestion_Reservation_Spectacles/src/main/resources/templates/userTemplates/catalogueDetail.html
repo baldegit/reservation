@@ -20,8 +20,7 @@
 				            	<h2 class="card-title" th:text="${representation.show.title}">Post Title</h2>
 				            	<h4 th:text="${representation.show.location.designation}"> </h4><br>
 				              	<p class="card-text"  th:text="${representation.show.description}" ></p>
-				              	<a th:href="@{catalogueReservation(idRep=${representation.id})}" class="btn btn-danger btn-block"	
-					              								th:text="#{catalogueHome.reservation}" ></a>
+				              	
 				            </div>
 				            
 				            <div class="card-footer text-muted">
@@ -64,9 +63,11 @@
 						  	</ul>
 
 							<div class="container spacer">
-								<a th:href="@{catalogueReservation(idRep=${representation.id})}" class="btn btn-danger btn-block"	
-					              								th:text="#{catalogueHome.reservation}" ></a>
+								<a th:href="@{catalogueReservation(idRep=${representation.id})}" 
+								   class="btn btn-danger btn-block" th:classappend="${representation.show.price = 0} ? disabled : _"
+					               th:text="#{catalogueHome.reservation}" ></a>
 							</div>
+				
 	            		</div>
 					</div>
 						

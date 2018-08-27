@@ -8,31 +8,36 @@
 			<!-- Navigation -->
 <!-- 		<nav class="navbar navbar-expand-sm bg-dark navbar-dark fixed-top"> -->
 		<nav class="navbar navbar-expand-md bg-dark navbar-dark fixed-top">
-			<a class="navbar-brand" href="#">Logo</a>
+			
 			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
 		    	<span class="navbar-toggler-icon"></span>
 		  	</button>
 		  	<div class="collapse navbar-collapse" id="collapsibleNavbar">
 		  		<ul class="navbar-nav">
-	    		<li class="nav-item active"><a class="nav-link" href="#">Home</a></li>
-				<li class="nav-item"><a class="nav-link" href="#">Page 1</a></li>
-				<li class="nav-item"><a class="nav-link"href="#">Page 2</a></li> 
+	    		<li class="nav-item active"><a class="nav-link" th:href="@{/home}" th:text="#{catalogueHome.title}">Home</a></li>
 	    	</ul>
-	    	<nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+	    	<nav class="navbar navbar-expand-sm bg-dark navbar-dark ml-auto">
 				<form class="form-inline" th:action="@{home}" method="get">
 			    	<input class="form-control mr-sm-1" type="text" name="motCle" th:value="${motCle}">
 			    	<button class="btn btn-secondary" type="submit"> Go </button>
-
 			  	</form>
 			</nav>
 
 
 		  	<ul class="navbar-nav ml-auto">
 		    	<li class="nav-item">
-		      		<a class="nav-link" href="#">Link</a>
+		      		<a class="nav-link" th:href="@{/admin/}" th:text="#{catalogueHome.admin}">Administration</a>
 		    	</li>
-		    	<li class="nav-item">
-		    	  	<a class="nav-link" href="#">Link</a>
+		    	<li class="nav-item dropdown">
+		    	  	<a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+		    	  		<span th:text="#{catalogueHome.seConnecter}"></span>
+		    	  	</a>
+		    	  	<div class="dropdown-menu dropdown-menu-right">
+		    	  		<a class="dropdown-item" th:href="@{/connection}" th:text="#{catalogueHome.seConnecter}">Se connecter</a>
+				        <a class="dropdown-item" th:href="@{/editOrCreateNewUser}" th:text="#{catalogueHome.seConnecter.creeCompte}">Crée un compte</a>
+				        <a class="dropdown-item" th:href="@{/editOrCreateNewUser(userId = 1)}" th:text="#{catalogueHome.seConnecter.profil}">Profil</a>
+				        <a class="dropdown-item" th:href="@{/login?logout}" th:text="#{catalogueHome.seConnecter.logout}">Deconnection</a>
+		    	  	</div>
 		    	</li>
 		  	</ul>
 		  	</div>

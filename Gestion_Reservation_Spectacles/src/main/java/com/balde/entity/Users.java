@@ -19,10 +19,15 @@ public class Users implements Serializable{
 	private int id;
 	
 	@Column(nullable = false)
+	@NotEmpty
 	private String login;
 	
 	@Column(nullable = false, columnDefinition = "TEXT")
+	@NotEmpty
+	@Size(min = 4)
 	private String password;
+	
+	private String confirmPassword;
 	
 	private boolean active;
 	
@@ -31,19 +36,20 @@ public class Users implements Serializable{
 	private Roles role;
 	
 	@Column(name = "firstname",nullable = false)
+	@NotEmpty
 	private String firstName;
 	
 	@Column(name = "lastname", nullable = false)
+	@NotEmpty
 	private String lastName;
 	
 	@Column(nullable = false)
-//	@Email
+	@Email
 //	@Pattern(regexp = "[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\."
 //		    +"[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*"
 //		    +"@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?")
 	private String email;
 	
-	@Column(nullable = false)
 	private String langue;
 
 	public Users() {
@@ -137,6 +143,15 @@ public class Users implements Serializable{
 	public void setLangue(String langue) {
 		this.langue = langue;
 	}
+
+	public String getConfirmPassword() {
+		return confirmPassword;
+	}
+
+	public void setConfirmPassword(String confirmPassword) {
+		this.confirmPassword = confirmPassword;
+	}
+	
 	
 	
 	

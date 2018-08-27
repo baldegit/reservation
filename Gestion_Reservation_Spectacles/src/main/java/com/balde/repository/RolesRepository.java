@@ -14,4 +14,6 @@ public interface RolesRepository extends JpaRepository<Roles, Integer>{
 	
 	@Query("select r from Roles r where r.role like %:x%")
 	public Page<Roles> findRolesByRole(@Param("x") String mc, Pageable pageable);
+	
+	public Roles findRolesByRole(String role);
 }
