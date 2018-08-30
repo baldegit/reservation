@@ -16,6 +16,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 @Configuration
 @EnableWebSecurity
@@ -64,34 +65,38 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		// TODO Auto-generated method stub
-	
-		http
-			.authorizeRequests()
-				.antMatchers("/","/home","/editOrCreateNewUser","/saveOrUpdateUser","/catalogueDetail","/getPhoto").permitAll()
-				.anyRequest().authenticated()
-				.and()
-			.formLogin()
-				.and()
-			.httpBasic();
 		
+		http
+		.authorizeRequests()
+			.antMatchers("/","/home","/editOrCreateNewUser","/saveOrUpdateUser","/catalogueDetail","/getPhoto","/login","/connexion").permitAll()
+			.antMatchers("/admin/**").hasAuthority("ADMIN")
+			.antMatchers("/catalogueReservation").hasAnyAuthority("ADMIN","USER")
+			.and()
+		.formLogin()
+			.loginPage("/login")
+			.permitAll()
+			.and()
+		.logout()
+			.logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+			.logoutSuccessUrl("/")
+			.and()
+		.exceptionHandling()
+		.accessDeniedPage("/access-denied");
 			
-	   	
-			
+	
 //		http
-//			.authorizeRequests()
-//				.anyRequest().permitAll()
-//				.and()
-//			.formLogin()
-//				.and()
-//			.httpBasic();
-		//editOrCreateNewUser , /saveOrUpdateUse
-//		http
-//			.authorizeRequests()
-//				.anyRequest().authenticated()
-//				.and()
-//			.formLogin()
-//				.and()
-//			.httpBasic();
+//		.authorizeRequests()
+//			.antMatchers("/","/home","/editOrCreateNewUser","/saveOrUpdateUser","/catalogueDetail","/getPhoto","/login","/connexion").permitAll()
+//			.antMatchers("/admin/**").hasAuthority("ADMIN")
+//			.antMatchers("/catalogueReservation").hasAnyAuthority("ADMIN","USER")
+//			.and()
+//		.formLogin()
+//			.loginPage("/login")
+//			.permitAll()
+//			.and()
+//		.logout()
+//			.permitAll();
+
 	}
 	
 	@Override

@@ -33,10 +33,10 @@
 		    	  		<span th:text="#{catalogueHome.seConnecter}"></span>
 		    	  	</a>
 		    	  	<div class="dropdown-menu dropdown-menu-right">
-		    	  		<a class="dropdown-item" th:href="@{/connection}" th:text="#{catalogueHome.seConnecter}">Se connecter</a>
+		    	  		<a class="dropdown-item" th:href="@{/connexion}" th:text="#{catalogueHome.seConnecter}">Se connecter</a>
 				        <a class="dropdown-item" th:href="@{/editOrCreateNewUser}" th:text="#{catalogueHome.seConnecter.creeCompte}">Crée un compte</a>
 				        <a class="dropdown-item" th:href="@{/editOrCreateNewUser(userId = 1)}" th:text="#{catalogueHome.seConnecter.profil}">Profil</a>
-				        <a class="dropdown-item" th:href="@{/login?logout}" th:text="#{catalogueHome.seConnecter.logout}">Deconnection</a>
+				        <a class="dropdown-item" th:href="@{/logout}" th:text="#{catalogueHome.seConnecter.logout}">Deconnection</a>
 		    	  	</div>
 		    	</li>
 		  	</ul>
