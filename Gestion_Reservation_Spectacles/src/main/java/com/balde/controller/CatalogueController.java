@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.balde.entity.RepresentationUser;
 import com.balde.entity.Representations;
 import com.balde.entity.Users;
 import com.balde.service.IAdminService;
@@ -109,31 +110,26 @@ public class CatalogueController {
 	public String stripPayement(@RequestParam(name = "id") int id) throws Exception {
 			
 		try {
-			this.service.updatePlace(id);
+			this.service.reservePlace(id);
+			return "redirect:/home";
 		} catch (Exception e) {
 			// TODO: handle exception
-			e.printStackTrace();
+			throw e;
 		}
 		
-		return "redirect:/home";
+		
 	}
 	
 	@GetMapping("/editOrCreateNewUser")
 	public String nouveauCompte(Model model, @RequestParam(name="userId", required = false, defaultValue = "-1") int id) throws Exception {
 		
-		Optional<Users> optUser;
 		Users user;
 		String route;
 		try {
-			optUser = this.service.findUserById(id);
-			if(optUser.isPresent()) {
-				user = optUser.get();
-				route = "userProfil";
-			}
-			else {
+			
 				user = new Users();
 				route = "userForm";
-			}
+			
 			
 			model.addAttribute("user", user);			
 			return "userTemplates/"+route;
@@ -166,7 +162,19 @@ public class CatalogueController {
 			throw e;
 		}
 		
-		//userProfil
-		
 	}
+	
+	@GetMapping("/editUserProfile")
+	public String editUserProfile(Model model) throws Exception{
+		try {
+			List<RepresentationUser> reservations = this.service.getReservationOfUser();
+			model.addAttribute("reservations", reservations);			
+		} catch (Exception e) {
+			// TODO: handle exception
+			throw e;
+		}
+		return "userTemplates/userProfil";
+	}
+	
+	
 }

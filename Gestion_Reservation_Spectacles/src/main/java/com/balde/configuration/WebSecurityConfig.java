@@ -21,29 +21,6 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 @Configuration
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
-
-	
-	
-	
-//	@Autowired
-//	PasswordEncoder passwordEncoder;
-//	
-//	@Bean
-//	public static PasswordEncoder passwordEncoder() {
-//		return PasswordEncoderFactories.createDelegatingPasswordEncoder();
-//	}
-	
-//	@Override
-//	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-//		// TODO Auto-generated method stub
-//		super.configure(auth);
-//		auth.jdbcAuthentication()
-//		.usersByUsernameQuery("select email,password,active from users where email=?")
-//		.authoritiesByUsernameQuery("select u.email, r.role from users u, roles r where u.role_id = r.id and u.email =  ?")
-//		.passwordEncoder(passwordEncoder);
-//	}
-	
-	
 	
 	@Autowired
 	BCryptPasswordEncoder bCryptPasswordEncoder;
@@ -68,10 +45,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 		
 		http
 		.authorizeRequests()
-			.antMatchers("/","/home","/editOrCreateNewUser","/saveOrUpdateUser","/catalogueDetail","/getPhoto","/login","/connexion").permitAll()
+			.antMatchers("/","/home","/editOrCreateNewUser","/saveOrUpdateUser","/catalogueDetail","/getPhoto","/login","/connexion","/roles/*").permitAll()
 			.antMatchers("/admin/**").hasAuthority("ADMIN")
 			.antMatchers("/catalogueReservation").hasAnyAuthority("ADMIN","USER")
-			.and()
+			.and().csrf().disable()
 		.formLogin()
 			.loginPage("/login")
 			.permitAll()
@@ -82,20 +59,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 			.and()
 		.exceptionHandling()
 		.accessDeniedPage("/access-denied");
-			
-	
-//		http
-//		.authorizeRequests()
-//			.antMatchers("/","/home","/editOrCreateNewUser","/saveOrUpdateUser","/catalogueDetail","/getPhoto","/login","/connexion").permitAll()
-//			.antMatchers("/admin/**").hasAuthority("ADMIN")
-//			.antMatchers("/catalogueReservation").hasAnyAuthority("ADMIN","USER")
-//			.and()
-//		.formLogin()
-//			.loginPage("/login")
-//			.permitAll()
-//			.and()
-//		.logout()
-//			.permitAll();
 
 	}
 	

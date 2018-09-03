@@ -85,7 +85,6 @@ public class AdminRoleController {
 		try {
 			if(result.hasErrors())
 				return "adminTemplates/adminRoleForm";
-			
 			this.service.saveRole(role);
 			
 		} catch (Exception e) {

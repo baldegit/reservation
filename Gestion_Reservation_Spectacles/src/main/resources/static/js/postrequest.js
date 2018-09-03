@@ -1,9 +1,10 @@
-
+console.log("E023");
 $(document).ready(function() {
 	console.log("E0");
 	// SUBMIT FORM
     $("#roleForm").submit(function(event) {
 		// Prevent the form from submitting via the browser.
+    	console.log("12E3");
 		event.preventDefault();
 		ajaxPost();
 	});
@@ -18,7 +19,7 @@ $(document).ready(function() {
     	$.ajax({
     		type : "POST",
     		contentType : "application/json",
-    		url: "http://localhost:8080/roles/",
+    		url: "http://localhost:8080/roles",
     		data : JSON.stringify(formData),
     		dataType : 'json'
     	}).then(function(result){

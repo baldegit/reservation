@@ -6,6 +6,9 @@ import java.util.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.*;
 import org.springframework.data.domain.Sort.Direction;
+import org.springframework.expression.spel.support.ReflectivePropertyAccessor.OptimalPropertyAccessor;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -41,6 +44,8 @@ public class AdminServiceImpl implements IAdminService{
 	private UsersRepository userRepo;
 	@Autowired
 	private RolesRepository roleRepo;
+	@Autowired
+	private RepresentationUserRepository repUserRepo;
 	
 	@Autowired
 	private IGestionFiles gestionFile;
@@ -694,6 +699,23 @@ public class AdminServiceImpl implements IAdminService{
 			throw new Exception(e.getMessage());
 		}
 	}
+	
+	@Override
+	public Optional<Users> findUserByEmail(String email) throws Exception {
+		// TODO Auto-generated method stub
+		Users u;
+		try {
+			u = this.userRepo.findByEmail(email);
+			
+			if(u instanceof Users)
+				return Optional.of(u);
+						
+			return Optional.empty();
+		} catch (Exception e) {
+			// TODO: handle exception
+			throw new Exception(e.getMessage());
+		}
+	}
 
 	@Override
 	public Optional<Users> saveUser(Users u) throws Exception {
@@ -725,9 +747,25 @@ public class AdminServiceImpl implements IAdminService{
 		}
 		
 	}
+	
+	@Override
+	public Users getLogedUser() throws Exception {
+		// TODO Auto-generated method stub
+		
+		try {
+			Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+			String email = auth.getName();
+			Users user = this.userRepo.findByEmail(email);
+			return user;
+		} catch (Exception e) {
+			// TODO: handle exception
+			throw e;
+		}
+	}
+	
 	//--------------------------------------------------------------------------------
 	/*
-	 * Gestion des Utilisateurs ----------------------------------------------
+	 * Gestion des Roles ----------------------------------------------
 	 * */
 
 	@Override
@@ -798,6 +836,54 @@ public class AdminServiceImpl implements IAdminService{
 			throw new Exception(e.getMessage());
 		}
 	}
+
+
+	//--------------------------------------------------------------------------------
+	/*
+	 * Gestion des Reservation Utilisateurs ----------------------------------------------
+	 * */
+	
+	@Override
+	public List<RepresentationUser> getReservationOfUser() throws Exception {
+		// TODO Auto-generated method stub
+		List<RepresentationUser> lru;
+		try {
+			Users u = this.getLogedUser();
+			System.out.println("@@@@@ FirstName "+u.getFirstName()+" Id "+u.getId());
+			lru = this.repUserRepo.findRepresentationsUserByUserId(u.getId());
+			System.out.println("@@@@@ ######### "+lru.size());
+			return lru;
+		} catch (Exception e) {
+			// TODO: handle exception
+			throw e;
+		}
+	}
+
+	@Override
+	public void reservePlace(int idRep) throws Exception {
+		// TODO Auto-generated method stub
+		RepresentationUser ru;
+		RepresentationUser ruTmp;
+		try {
+			Users u = this.getLogedUser();
+			Representations r = this.representationRepo.getOne(idRep);
+			ruTmp = this.repUserRepo.findRepUserByUserRepId(u.getId(), r.getId());
+			if(ruTmp instanceof RepresentationUser)
+				ru = ruTmp;
+			else
+				ru = new RepresentationUser(r, u, 0);
+			
+			ru.setPlaces(ru.getPlaces() + 1);
+			this.repUserRepo.save(ru);
+			this.updatePlace(r.getShow().getId());
+			
+		} catch (Exception e) {
+			// TODO: handle exception
+			throw e;
+		}
+		
+	}
+
 	
 	
 	

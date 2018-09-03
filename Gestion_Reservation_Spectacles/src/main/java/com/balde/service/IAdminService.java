@@ -69,7 +69,9 @@ public interface IAdminService {
 	// Users
 	public List<Object> findAllUsersByPage(int page,String motCle,int size) throws Exception;
 	public Optional<Users> findUserById(int id) throws Exception;
+	public Optional<Users> findUserByEmail(String email) throws Exception;
 	public Optional<Users> saveUser(Users u) throws Exception;
+	public Users getLogedUser() throws Exception;
 	public void deleteUserById(int id) throws Exception;
 	
 	// Roles
@@ -78,5 +80,9 @@ public interface IAdminService {
 	public Optional<Roles> findRoleById(int id) throws Exception;
 	public Optional<Roles> saveRole(Roles r) throws Exception;
 	public void deleteRoleById(int id) throws Exception;
+	
+	// RepresentationUser
+	public List<RepresentationUser> getReservationOfUser() throws Exception;
+	public void reservePlace(int idRep) throws Exception;
 	
 }

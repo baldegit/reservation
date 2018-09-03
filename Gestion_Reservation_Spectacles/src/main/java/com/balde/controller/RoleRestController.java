@@ -26,6 +26,7 @@ public class RoleRestController {
 	
 	@PostMapping
 	public ResponseEntity<?> saveRole(@Valid @RequestBody Roles role, BindingResult result){
+				
 		Response response;
 		
 		if(result.hasErrors()) {
@@ -51,4 +52,19 @@ public class RoleRestController {
 		}
 
 	}
+	
+//	@GetMapping("/")
+//	public ResponseEntity<?> getRoles(){
+//		Response response = null;
+//		try {
+//			List<Roles> r = this.service.findAllRole();
+//			response = new Response(r, HttpStatus.ACCEPTED,"@@@@@@@@@@@@@@@@@@@");
+//			return new ResponseEntity<>(response,response.getStatus());
+//		} catch (Exception e) {
+//			// TODO: handle exception
+//			e.printStackTrace();
+//			return new ResponseEntity<>(response,response.getStatus());
+//		}
+////		return new ResponseEntity<>(response,response.getStatus());
+//	}
 }
