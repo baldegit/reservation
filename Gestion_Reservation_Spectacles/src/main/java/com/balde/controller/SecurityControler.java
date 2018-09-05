@@ -2,6 +2,8 @@ package com.balde.controller;
 
 import java.util.Optional;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -56,6 +58,7 @@ public class SecurityControler {
 	
 //	@GetMapping("/error")
 //	public String error() {
-//		return "error";
+//		
+//		return "error01";
 //	}
 }

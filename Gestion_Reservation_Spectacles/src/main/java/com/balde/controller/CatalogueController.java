@@ -30,7 +30,7 @@ import com.balde.service.IAdminService;
 @Controller
 public class CatalogueController {
 	
-	private static final int PAGES_SIZE = 5;
+	private static final int PAGES_SIZE = 6;
 	
 	private final String ERROR_CODE = "Les deux mots de passe doivent être identiques! ";
 	
@@ -59,7 +59,7 @@ public class CatalogueController {
 			
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			throw new Exception(e.getMessage());
 		} 
 		
 		return "userTemplates/catalogueHome";
@@ -87,22 +87,21 @@ public class CatalogueController {
 			model.addAttribute("representation", representation.get());
 		} catch (Exception e) {
 			// TODO: handle exception
-			e.printStackTrace();
+			throw new Exception(e.getMessage());
 		}
 		return "userTemplates/catalogueReservation";
 	}
 	
 	@GetMapping(value="/getPhoto",produces=MediaType.IMAGE_JPEG_VALUE)
 	@ResponseBody()
-	public byte[] getPhoto(int idShow) {
+	public byte[] getPhoto(int idShow) throws Exception {
 		
 		try {
 			File f = this.service.getPhotoForAShow(idShow);
 			return IOUtils.toByteArray(new FileInputStream(f));
 		} catch ( Exception e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
-			return null;
+			throw new Exception(e.getMessage());
 		}
 	}
 	
@@ -114,7 +113,7 @@ public class CatalogueController {
 			return "redirect:/home";
 		} catch (Exception e) {
 			// TODO: handle exception
-			throw e;
+			throw new Exception(e.getMessage());
 		}
 		
 		
@@ -135,8 +134,7 @@ public class CatalogueController {
 			return "userTemplates/"+route;
 		} catch (Exception e) {
 			// TODO: handle exception
-			e.printStackTrace();
-			return null;
+			throw new Exception(e.getMessage());
 		}
 			
 	}
@@ -158,7 +156,7 @@ public class CatalogueController {
 			
 		} catch (Exception e) {
 			// TODO: handle exception
-			e.printStackTrace();
+			
 			throw e;
 		}
 		

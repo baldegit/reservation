@@ -118,7 +118,7 @@ public class AdminShowController {
 			
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			throw e;
 		}
 		
 		return "redirect:/admin/show/";
