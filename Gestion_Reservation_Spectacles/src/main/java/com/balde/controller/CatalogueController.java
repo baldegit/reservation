@@ -119,22 +119,49 @@ public class CatalogueController {
 		
 	}
 	
+//	@GetMapping("/editOrCreateNewUser")
+//	public String nouveauCompte(Model model, @RequestParam(name="userId", required = false, defaultValue = "-1") int id) throws Exception {
+//		
+//		Users user;
+//		String route;
+//		try {
+//			
+//				user = new Users();
+//				route = "userForm";
+//			
+//			
+//			model.addAttribute("user", user);			
+//			return "userTemplates/"+route;
+//		} catch (Exception e) {
+//			// TODO: handle exception
+//			throw new Exception(e.getMessage());
+//		}
+//			
+//	}
+	
 	@GetMapping("/editOrCreateNewUser")
 	public String nouveauCompte(Model model, @RequestParam(name="userId", required = false, defaultValue = "-1") int id) throws Exception {
 		
+		Optional<Users> optUser;
 		Users user;
 		String route;
 		try {
-			
+			optUser = this.service.findUserById(id);
+			if(optUser.isPresent()) {
+				user = optUser.get();
+				route = "userProfil";
+			}
+			else {
 				user = new Users();
 				route = "userForm";
-			
+			}
 			
 			model.addAttribute("user", user);			
 			return "userTemplates/"+route;
 		} catch (Exception e) {
 			// TODO: handle exception
-			throw new Exception(e.getMessage());
+			e.printStackTrace();
+			return null;
 		}
 			
 	}
@@ -150,8 +177,9 @@ public class CatalogueController {
 			
 			if(result.hasErrors())
 				return "userTemplates/userForm";
-			
+			System.out.println("@@@@@@@@@@@@@@@@@@@@@@");
 			this.service.saveUser(u);
+			System.out.println("######################");
 			return "redirect:/home";
 			
 		} catch (Exception e) {

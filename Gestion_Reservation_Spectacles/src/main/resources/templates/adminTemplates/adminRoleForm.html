@@ -13,45 +13,45 @@
 				  	<div class="panel-heading" th:utext="#{adminRoleForm.panel.heading}">Panel Heading</div>
 				  	<div class="panel-body">
 <!-- 				  	[-> Spring MVC Form -->
-<!-- 				  		<form th:action="@{saveOrUpdate}" method="post" th:object="${roles}" modelAttribute="roles" > -->
-<!-- 							<fieldset class="scheduler-border"> -->
-<!-- 								<legend class="scheduler-border" th:text="#{adminUserForm.fieldSet.label}" /> -->
-								
-<!-- 									<div class="form-group"> -->
-<!-- 										<input type="hidden" th:field="*{id}" class="form-control" /> -->
-<!-- 									</div> -->
-<!-- 									<div class="form-group"> -->
-<!-- 										<label class="control-label" th:text="#{adminRoleForm.form.type}"></label> -->
-<!-- 										<input type="text" th:field="*{role}" class="form-control" /> -->
-<!-- 										<span class="text-danger" th:errors="*{role}"></span> -->
-<!-- 									</div> -->
-								
-<!-- 									<div> -->
-<!-- 										<button type="submit" class="btn btn-block" th:text="#{adminRoleForm.form.save}"></button> -->
-<!-- 									</div> -->
-<!-- 							</fieldset> -->
-<!-- 						</form> -->
-<!-- 						#Sprin MVC Form<-] -->
-						
-<!-- 						[-> Spring REST Form  -->
-						
-							<form action="" id="roleForm" th:object="${roles}">
+				  		<form th:action="@{saveOrUpdate}" method="post" th:object="${roles}" modelAttribute="roles" >
 							<fieldset class="scheduler-border">
 								<legend class="scheduler-border" th:text="#{adminUserForm.fieldSet.label}" />
 								
 									<div class="form-group">
-										<input type="hidden" th:field="*{id}" id="id" class="form-control" />
+										<input type="hidden" th:field="*{id}" class="form-control" />
 									</div>
 									<div class="form-group">
 										<label class="control-label" th:text="#{adminRoleForm.form.type}"></label>
-										<input type="text" th:field="*{role}" id="role" class="form-control" />
+										<input type="text" th:field="*{role}" class="form-control" />
+										<span class="text-danger" th:errors="*{role}"></span>
 									</div>
-									
+								
 									<div>
 										<button type="submit" class="btn btn-block" th:text="#{adminRoleForm.form.save}"></button>
 									</div>
 							</fieldset>
 						</form>
+<!-- 						#Sprin MVC Form<-] -->
+						
+<!-- 						[-> Spring REST Form  -->
+						
+<!-- 							<form action="" id="roleForm" th:object="${roles}"> -->
+<!-- 							<fieldset class="scheduler-border"> -->
+<!-- 								<legend class="scheduler-border" th:text="#{adminUserForm.fieldSet.label}" /> -->
+								
+<!-- 									<div class="form-group"> -->
+<!-- 										<input type="hidden" th:field="*{id}" id="id" class="form-control" /> -->
+<!-- 									</div> -->
+<!-- 									<div class="form-group"> -->
+<!-- 										<label class="control-label" th:text="#{adminRoleForm.form.type}"></label> -->
+<!-- 										<input type="text" th:field="*{role}" id="role" class="form-control" /> -->
+<!-- 									</div> -->
+									
+<!-- 									<div> -->
+<!-- 										<button type="submit" class="btn btn-block" th:text="#{adminRoleForm.form.save}"></button> -->
+<!-- 									</div> -->
+<!-- 							</fieldset> -->
+<!-- 						</form> -->
 						
 <!-- 						#Sprin REST Form<-] -->
 		
@@ -60,10 +60,10 @@
 			</div>
 		</div>
 		
-		<div class="container spacer">
-			<h1 style="color:blue">POST Result</h1>
-			<p id="postResult"></p>
-		</div>
+<!-- 		<div class="container spacer"> -->
+<!-- 			<h1 style="color:blue">POST Result</h1> -->
+<!-- 			<p id="postResult"></p> -->
+<!-- 		</div> -->
 			
 		</section>
 	</body>

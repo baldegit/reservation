@@ -724,8 +724,8 @@ public class AdminServiceImpl implements IAdminService{
 			
 			u.setPassword(bCryptPasswordEncoder.encode(u.getPassword().toString()));
 			
-			//Roles userRole = this.roleRepo.findRolesByRole("ADMIN");
-			Roles userRole = this.roleRepo.findRolesByRole("USER");
+			Roles userRole = this.roleRepo.findRolesByRole("ADMIN");
+			//Roles userRole = this.roleRepo.findRolesByRole("USER");
 			u.setActive(1);
 			u.setRole(userRole);
 			Users user = this.userRepo.save(u);
